@@ -15,11 +15,11 @@ import java.util.List;
 @RestController
 public class Controller {
     private final ChatClient chatClient;
-//    private final HashMap<String, HomeEvaluationResponse> homeEvaluationResponseHashMap;
+    private final HashMap<String, HomeEvaluationResponse> homeEvaluationResponseHashMap;
     private final HashMap<String, List<HomeItem>> listOfHomesHashMap;
 
     public Controller(ChatClient.Builder builder) {
-        this.chatClient = builder
+        chatClient = builder
             .defaultSystem("""
                 The user will give you some data about a house, I need you to give me back in json format whether you think buying the house, renovating it a little, then selling it will make a profit, and how much of a profit it will make.
                 Example of the json, do not use these exact values each time
@@ -29,7 +29,8 @@ public class Controller {
                     "estimatedMoneyMade" : 1000
                 }""")
             .build();
-        this.listOfHomesHashMap = new HashMap<>();
+        listOfHomesHashMap = new HashMap<>();
+        homeEvaluationResponseHashMap = new HashMap<>();
     }
 
     @PostMapping("/getHomeEvaluation")
@@ -39,6 +40,10 @@ public class Controller {
 
 
     private HomeEvaluationResponse calculateHomeEvaluation(String address) {
+        if (homeEvaluationResponseHashMap.containsKey(address)) {
+            return homeEvaluationResponseHashMap.get(address);
+        }
+
         try {
             String[] command = {"python", "src/main/java/com/vark/fliporflop/scrapeHomes.py", " " + address};
 
@@ -76,6 +81,7 @@ public class Controller {
                     .call().content();
             homeEvaluationResponse.setEstimatedMoneyBack(chatResponse);
 
+            homeEvaluationResponseHashMap.put(address, homeEvaluationResponse);
             return homeEvaluationResponse;
         } catch (IOException ignored) {
             return new HomeEvaluationResponse();
@@ -100,6 +106,7 @@ public class Controller {
         if (listOfHomesHashMap.containsKey(address)) {
             return listOfHomesHashMap.get(address);
         }
+
         try {
             String[] command = {"python", "src/main/java/com/vark/fliporflop/listingScraper.py", " " + address};
 
