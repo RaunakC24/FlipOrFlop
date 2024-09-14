@@ -12,7 +12,7 @@ function App() {
 
   const handleSearch = () => {
     if (searchTerm) {
-      navigate(`/${encodeURIComponent(searchTerm)}`);  // Use navigate for routing
+      navigate(`/info/${encodeURIComponent(searchTerm)}`);  // Use navigate for routing
     }
   };
 
@@ -23,8 +23,8 @@ function App() {
       </div>
       {/* Main Content Section */}
       <Routes>
-        <Route path="/:cityOrZip" element={<HouseList />} />
-        <Route path="/:id" element={<HouseDetail />} />
+        <Route path="/info/:cityOrZip" element={<HouseList />} />
+        <Route path="/home/:address" element={<HouseDetail />} />
 
         {/* Default Home Page */}
         <Route path="/" element={
