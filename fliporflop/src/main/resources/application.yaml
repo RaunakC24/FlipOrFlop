@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: Flip or Flop
+  ai:
+    retry:
+      max-attempts: 1
+      exclude-on-http-codes: 429
+    openai:
+      chat:
+        options:
+          model: ${AI_MODEL}
+      base-url: ${AI_BASE_URL}
+      api-key: ${AI_KEY}
+
+
+server:
+  port: 8080
