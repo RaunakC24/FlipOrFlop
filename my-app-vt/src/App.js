@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import { IoIosSearch } from "react-icons/io";
 import HouseList from './components/HouseList';  // Correcting the import
@@ -12,7 +12,8 @@ function App() {
 
   const handleSearch = () => {
     if (searchTerm) {
-      navigate(`/houses/${searchTerm}`);
+      // Navigate to the correct URL with the search term
+      navigate(`/houses/${encodeURIComponent(searchTerm)}`);
     }
   };
 
@@ -100,11 +101,9 @@ function App() {
         </div>
       </section>
 
+      {/* Route configuration */}
       <Routes>
-        {/* Route to display houses based on search */}
         <Route path="/houses/:cityOrZip" element={<HouseList />} />
-
-        {/* Route to display details for a specific house */}
         <Route path="/house/:id" element={<HouseDetail />} />
       </Routes>
 

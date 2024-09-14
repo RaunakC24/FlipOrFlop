@@ -1,17 +1,22 @@
 // src/components/HouseList.js
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 const HouseList = () => {
   const { cityOrZip } = useParams();
+  const [houses, setHouses] = useState([]);
 
-  // Sample static data for houses in that city or ZIP
-  const houses = [
-    { id: 1, address: '123 Main St', price: '$400,000', city: cityOrZip },
-    { id: 2, address: '456 Oak St', price: '$500,000', city: cityOrZip },
-    { id: 3, address: '789 Pine St', price: '$350,000', city: cityOrZip },
-  ];
+  useEffect(() => {
+    // Static data based on cityOrZip
+    const houseData = [
+      { id: 1, address: '123 Main St', price: '$400,000', city: cityOrZip },
+      { id: 2, address: '456 Oak St', price: '$500,000', city: cityOrZip },
+      { id: 3, address: '789 Pine St', price: '$350,000', city: cityOrZip },
+    ];
+
+    // Set the static houses based on the search term
+    setHouses(houseData);
+  }, [cityOrZip]);  // Re-run when cityOrZip changes
 
   return (
     <div>
