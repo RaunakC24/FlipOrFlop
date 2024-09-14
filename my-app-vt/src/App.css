@@ -13,10 +13,10 @@ body, html {
 
 .App-logo {
   position: absolute;
-  top: 20px;      /* Adjust the top position */
-  left: 20px;     /* Adjust the left position */
+  top: 10px;      /* Adjust the top position */
+  left: 19px;     /* Adjust the left position */
   width: 100px;   /* Adjust the width of the logo */
-  height: auto;   /* Keep the aspect ratio */
+  height: 100px;   /* Keep the aspect ratio */
 }
 
 .App-header {

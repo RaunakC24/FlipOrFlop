@@ -17,9 +17,9 @@ function App() {
       </header>
 
       {/* Globe component */}
-      <section className="Globe-section">
+      {/* <section className="Globe-section">
         <GlobeComponent />
-      </section>
+      </section> */}
 
       {/* Scrollable content */}
       <section className="content-section" style={{ height: '200vh', backgroundColor: '#ffffff' }}>
