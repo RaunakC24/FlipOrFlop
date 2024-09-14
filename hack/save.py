@@ -1,61 +1,215 @@
+import json
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
-import time
+from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
+def getHighlights(soup):
+    #---------------------- highlights
 
-# Setup Chrome WebDriver using WebDriverManager
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-url = "https://www.homes.com/blacksburg-va/24060/?bb=n3r7tygj9H1kjk-hI"
-driver.get(url)
+    # Find the <ul> element with the class "plain-list"
+    highlight_list = soup.find("ul", {"class": "plain-list"})
 
-# Get the page source after JavaScript has loaded
-soup = BeautifulSoup(driver.page_source, "html.parser")
-
-# Wait for the page to fully load
-time.sleep(5)  # Adjust sleep time based on page loading speed
-
-# Get page source and parse with BeautifulSoup
-soup = BeautifulSoup(driver.page_source, 'html.parser')
-
-# Close the browser once the data is obtained
-driver.quit()
-
-# Find all property listings
-property_listings = soup.find_all('li', class_='placard-container')
-
-# Loop through each property listing and extract relevant data
-for property_listing in property_listings:
-    # Price
-    price = property_listing.find('p', class_='price-container').get_text(strip=True)
-
-    # Address
-    address_tag = property_listing.find('p', class_='property-name')
-    address = address_tag.get_text(strip=True) if address_tag else "No Address"
-
-    # Beds, Baths, Sq Ft
-    detailed_info = property_listing.find('ul', class_='detailed-info-container')
-    if detailed_info:
-        info_items = detailed_info.find_all('li')
-        if info_items:
-            beds = info_items[0].get_text(strip=True) if len(info_items) > 0 else "N/A"
-            baths = info_items[1].get_text(strip=True) if len(info_items) > 1 else "N/A"
-            sqft = info_items[2].get_text(strip=True) if len(info_items) > 2 else "N/A"
-        else:
-            beds = baths = sqft = "N/A"
+    if highlight_list:
+        # Find all <li> elements within the <ul>
+        highlights = highlight_list.find_all("li", {"class": "highlight"})
+        for highlight in highlights:
+            # Extract the text inside the <span> with class "highlight-value"
+            value = highlight.find("span", {"class": "highlight-value"})
+            if value:
+                print("Highlight:", value.get_text(strip=True))
     else:
-        beds = baths = sqft = "N/A"
+        print("Could not find the highlights list.")
 
-    # Property description
-    description_tag = property_listing.find('p', class_='property-description')
-    description = description_tag.get_text(strip=True) if description_tag else "No Description"
+def scrape_description(soup):
+    # Find the <p> tag with id "ldp-description-text"
+    description_tag = soup.find("p", {"id": "ldp-description-text"})
+    if description_tag:
+        # Extract and clean the text
+        description_text = description_tag.get_text(strip=True)
+        print(description_text)
+    else:
+        return "Description not found."
 
-    # Output the scraped data
-    print(f"Price: {price}")
-    print(f"Address: {address}")
-    print(f"Beds: {beds}")
-    print(f"Baths: {baths}")
-    print(f"Sq Ft: {sqft}")
-    print(f"Description: {description}")
-    print('-' * 50)
+def getTaxData(soup):
+    tax_table = soup.find("table", {"class": "tax-table"})
+    if tax_table:
+        # Extract all rows from the table body
+        rows = tax_table.find("tbody").find_all("tr")
+
+        # Loop through each row
+        for row in rows:
+            # Extract each column value (Year, Tax Paid, Tax Assessment, Land, Improvement)
+            year = row.find("th", {"scope": "row"}).get_text(strip=True)  # Year is in <th> tag
+            tax_paid = row.find("td", {"class": "tax-amount"}).get_text(strip=True)
+            tax_assessment = row.find("td", {"class": "tax-assessment"}).get_text(strip=True)
+            land_value = row.find("td", {"class": "tax-land"}).get_text(strip=True)
+            improvement_value = row.find("td", {"class": "tax-improvement"}).get_text(strip=True)
+
+            # Print the extracted data
+            print(f"Year: {year}, Tax Paid: {tax_paid}, Tax Assessment: {tax_assessment}, Land: {land_value}, Improvement: {improvement_value}")
+    else:
+        print("Tax table not found")
+
+def scrape_amenities(soup):
+    # Create a dictionary to store the structured data
+    amenities_data = {}
+    
+    # Find all the categories (sections with headings like 'Listing Details', 'Interior Features', etc.)
+    categories = soup.find_all('div', class_='subcategory')
+
+    for category in categories:
+        # Get the heading (e.g., 'Listing Details', 'Interior Features')
+        heading = category.find('p', class_='amenity-name').text.strip()
+
+        # Get the list items under each category
+        list_items = category.find_all('li', class_='amenities-detail')
+
+        # Store details in a list
+        details = [item.text.strip() for item in list_items]
+        
+        # Add the heading and details to the dictionary
+        amenities_data[heading] = details
+    
+    return amenities_data
+
+def grabImage(soup):
+    img = soup.find("", "")
+    # Your implementation here
+
+def extract_year_built(data):
+    # Check if "Year Built" is available in the data
+    if "Year Built" in data:
+        for item in data["Year Built"]:
+            # Check if the item is a valid year (4 digits)
+            if item.strip().isdigit() and len(item.strip()) == 4:
+                return item.strip()
+            # Extract the year from formats like 'Built in 2006'
+            if "Built in" in item:
+                return item.split("Built in")[1].strip()
+    if "Listing Details" in data:
+        for detail in data["Listing Details"]:
+            if "Year Built" in detail:
+                return detail.split(":")[1].strip()
+    return None
+
+def extract_sq_ft(data):
+    # Check in different sections where square footage is mentioned
+    if "Interior Spaces" in data:
+        for item in data["Interior Spaces"]:
+            if "Sq Ft" in item:
+                return item.split(" Sq Ft")[0].strip()
+    if "Listing Details" in data:
+        for detail in data["Listing Details"]:
+            if "Estimated Total Finished Sq Ft" in detail:
+                return detail.split(":")[1].strip()
+    return None
+
+def getPriceAndAddress(driver):
+    try:
+        # Wait for the elements to be present
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "price"))
+        )
+        price = driver.find_element(By.ID, "price").text
+    except NoSuchElementException:
+        price = "Price not found"
+
+    try:
+        address = driver.find_element(By.CLASS_NAME, "property-info-address-main").text
+    except NoSuchElementException:
+        address = "Address not found"
+    
+    print("price: " + price)
+    print("python scrapeHomes.py " + address)
+
+def scrape_images(driver):
+    # List to store image URLs
+    good_images = []
+
+    try:
+        # Find all <img> elements with the specific class
+        image_elements = driver.find_elements(By.CLASS_NAME, "primary-carousel-slide-img")
+
+        for image in image_elements:
+            try:
+                # Check 'src' attribute
+                src = image.get_attribute('src')
+                if src and ".jpg" in src:
+                    good_images.append(src)
+                    break
+            except StaleElementReferenceException as e:
+                print(f"StaleElementReferenceException when extracting 'src': {e}")
+            
+            try:
+                # Check 'data-src' attribute
+                data_src = image.get_attribute('data-src')
+                if data_src and ".jpg" in data_src:
+                    good_images.append(data_src)
+                    break
+            except StaleElementReferenceException as e:
+                print(f"StaleElementReferenceException when extracting 'data-src': {e}")
+            
+            try:
+                # Check 'data-image' attribute
+                data_image = image.get_attribute('data-image')
+                if data_image and ".jpg" in data_image:
+                    good_images.append(data_image)
+                    break
+            except StaleElementReferenceException as e:
+                print(f"StaleElementReferenceException when extracting 'data-image': {e}")
+    except TimeoutException as e:
+        print(f"TimeoutException: {e}")
+
+    print("Image URLs:")
+    for img_url in good_images:
+        print(img_url)
+
+def run(url):
+    # Setup Chrome WebDriver using WebDriverManager
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    
+    # Open the URL
+    driver.get(url)
+
+    # Reinitialize `soup` with the updated page source
+    soup = BeautifulSoup(driver.page_source, "html.parser")
+
+    # Now use the updated soup to scrape data
+    # print("Description:")
+    # scrape_description(soup)
+
+    getPriceAndAddress(driver)
+
+    print("\nTax Data:")
+    getTaxData(soup)
+    
+    print("\nAmenities:")
+    amenities = scrape_amenities(soup)
+    print(json.dumps(amenities, indent=4))
+
+    print("\nSqFt:" + str(extract_sq_ft(amenities)))
+    print("\nYear Built:" + str(extract_year_built(amenities)))
+
+    # Scrape images
+    scrape_images(driver)
+
+    driver.quit()
+
+urls = [
+    "https://www.homes.com/property/313-sunset-blvd-blacksburg-va/xs4svg5q4ts1r/",
+    # "https://www.homes.com/property/565-brush-mountain-rd-blacksburg-va/9prkxp50m85ny/",
+    # "https://www.homes.com/property/the-preserve-single-family-homes-savannah-blacksburg-va/2f4je0skpc0b3/",
+    # "https://www.homes.com/property/1325-nellies-cave-rd-blacksburg-va/rk3m86v31vdv5/",
+    # "https://www.homes.com/property/602-floyd-st-blacksburg-va/mhc1y9e4gemxb/"
+]
+
+# Loop through URLs and run the scraper for each
+for url in urls:
+    print(f"--" * 10)
+    print(f"\nScraping URL: {url}")
+    run(url)

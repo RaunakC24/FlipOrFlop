@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
+import sys
 
 def getHighlights(soup):
     #---------------------- highlights
@@ -169,17 +171,25 @@ def scrape_images(driver):
     for img_url in good_images:
         print(img_url)
 
-def run(url):
+def run():
+    url = "https://www.homes.com/"
     # Setup Chrome WebDriver using WebDriverManager
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    
+
+
     # Open the URL
     driver.get(url)
 
     # Reinitialize `soup` with the updated page source
+
+
+    time.sleep(2)
+    driver.find_element(By.XPATH, "//input[@aria-label='Place, Neighborhood, School or Agent']").send_keys(sys.argv[1])
+    time.sleep(1)
+    driver.find_element(By.ID, "propertySearchBtn").click()
+    # time.sleep(1)
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
-    # Now use the updated soup to scrape data
     # print("Description:")
     # scrape_description(soup)
 
@@ -200,15 +210,17 @@ def run(url):
 
     driver.quit()
 
-urls = [
-    "https://www.homes.com/property/565-brush-mountain-rd-blacksburg-va/9prkxp50m85ny/",
-    "https://www.homes.com/property/the-preserve-single-family-homes-savannah-blacksburg-va/2f4je0skpc0b3/",
-    "https://www.homes.com/property/1325-nellies-cave-rd-blacksburg-va/rk3m86v31vdv5/",
-    "https://www.homes.com/property/602-floyd-st-blacksburg-va/mhc1y9e4gemxb/"
-]
+
+run()
+# urls = [
+#     "https://www.homes.com/property/565-brush-mountain-rd-blacksburg-va/9prkxp50m85ny/",
+#     "https://www.homes.com/property/the-preserve-single-family-homes-savannah-blacksburg-va/2f4je0skpc0b3/",
+#     "https://www.homes.com/property/1325-nellies-cave-rd-blacksburg-va/rk3m86v31vdv5/",
+#     "https://www.homes.com/property/602-floyd-st-blacksburg-va/mhc1y9e4gemxb/"
+# ]
 
 # Loop through URLs and run the scraper for each
-for url in urls:
-    print(f"--" * 10)
-    print(f"\nScraping URL: {url}")
-    run(url)
+# for url in urls:
+#     print(f"--" * 10)
+#     print(f"\nScraping URL: {url}")
+#     run(url)
