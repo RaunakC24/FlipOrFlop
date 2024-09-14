@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Aloja&display=swap');
-
-
 body, html {
   margin: 0;
   padding: 0;
@@ -8,57 +5,54 @@ body, html {
   background-color: #f5d7c5;
   color: white;
   height: 100%;
-  /* overflow-x: hidden; */
 }
 
 .App-logo {
-  position: absolute;
-  top: 10px;      /* Adjust the top position */
-  left: 19px;     /* Adjust the left position */
-  width: 100px;   /* Adjust the width of the logo */
-  height: 100px;   /* Keep the aspect ratio */
+  width: 300px;   /* Adjust the size as needed */
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .App-header {
-  padding: 10px;
+  padding: 10px 0; /* Reduce the header padding to make it smaller */
   text-align: center;
-  background-color: transparent;  /* Remove black background */
+  background-color: transparent;
 }
 
-
-/* Orange and Bold Text with !important */
-.bold-orange-text {
-  color: orange !important;  /* Force the text to be orange */
-  font-weight: bold !important;  /* Force the text to be bold */
-}
-
-/* Styling for flip (Anton) */
-.flip-text {
-  font-family: 'Anton', sans-serif;
-  color: orange;
-  font-weight: bold;
-}
-
-/* Styling for flop (Aloja) */
-.flop-text {
-  font-family: 'Aloja', sans-serif;
-  color: orange;
-  font-weight: bold;
-}
-
-
-.Globe-section {
-  position: relative;
+/* Background image section with proper scaling and position */
+.background-image-section {
+  background-size: cover;
+  background-position: center 50px; /* Move the image down by 50px */
   width: 100vw;
-  height: 120vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-
+  height: 70vh;
+  position: relative;
 }
 
+.overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
 
+.overlay-heading {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  padding: 10px;
+  font-size: 1.2rem;
+  width: 60%;
+  max-width: 600px;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Styling for the rest of the content */
 .content-section {
   height: 100vh;
   display: flex;

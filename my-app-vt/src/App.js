@@ -1,27 +1,36 @@
 import React from 'react';
-import GlobeComponent from './components/Globe';  // Assuming GlobeComponent is in a 'components' folder
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <img src="/logo.png" alt="Logo" className="App-logo" />
-
-
-        {/* Update your h1 here with the new spans */}
-        <h1 className="bold-orange-text">
-        <span className="flip-text">flip</span> or <span className="flop-text">flop</span>
-        </h1>
-
+        <img src="/logo.png" alt="Logo" className="App-logo" />
       </header>
 
-      {/* Globe component */}
-      {/* <section className="Globe-section">
-        <GlobeComponent />
-      </section> */}
+      {/* Set background image inline */}
+      <section
+        className="background-image-section"
+        style={{
+          backgroundImage: 'url(/homestogetherimage.jpg)', // Correct reference to the image in public folder
+          backgroundSize: 'cover', // Ensure the image covers the section
+          backgroundPosition: 'bottom', // Align the image to cut the sky off
+          height: '70vh', // Adjust the height to give the cutoff look
+          width: '100vw',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        {/* Additional content can go here, like a search bar */}
+        <div className="overlay-content">
+          <h2 className="overlay-heading">Find a Home You Love</h2>
+          <input
+            type="text"
+            placeholder="Enter an address, neighborhood, city, or ZIP code"
+            className="search-bar"
+          />
+        </div>
+      </section>
 
-      {/* Scrollable content */}
       <section className="content-section" style={{ height: '200vh', backgroundColor: '#ffffff' }}>
         <h2>Scroll Down</h2>
         <p>Scroll down to see the globe grow in size!</p>
