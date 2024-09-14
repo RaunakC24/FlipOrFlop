@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import Footer from './Footer'; // Import Footer from a separate component
+import { IoIosSearch } from "react-icons/io"; // Importing the search icon
+
 
 function App() {
   return (
@@ -20,14 +22,20 @@ function App() {
           backgroundRepeat: 'no-repeat',
         }}
       >
-        {/* Additional content can go here, like a search bar */}
-        <div className="overlay-content">
-          <h2 className="overlay-heading">Unlock the Potential of Every Home</h2>
-          <input
-            type="text"
-            placeholder="Enter an address, neighborhood, city, or ZIP code"
-            className="search-bar"
-          />
+       <div className="overlay-content">
+          <h2 className="overlay-heading">Find a Home You Love</h2>
+
+          {/* Search bar container */}
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Enter a City or ZIP code"
+              className="search-bar"
+            />
+            <button className="search-icon">
+              <IoIosSearch />
+            </button>
+          </div>
         </div>
       </section>
 

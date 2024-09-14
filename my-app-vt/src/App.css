@@ -36,14 +36,60 @@ body, html {
   letter-spacing: 1px;
 }
 
+/* Search bar container with icon */
+.search-container {
+  position: relative;
+  width: 80%; /* Set the width of the search bar container */
+  max-width: 1200px; /* Set the max-width to ensure it doesn't stretch too much */
+  margin: 0 auto; /* Center the search container */
+  display: flex; /* Use flexbox to align the elements */
+  align-items: center; /* Align vertically in the center */
+  background-color: #fff; /* Background color for the search bar */
+  border-radius: 50px; /* Rounded corners */
+  padding: 10px 20px; /* Padding inside the search bar */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for a nice effect */
+}
+
 .search-bar {
-  padding: 10px;
-  font-size: 1.2rem;
-  width: 60%;
-  max-width: 600px;
   border: none;
-  border-radius: 5px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for better visibility */
+  outline: none;
+  flex-grow: 1; /* This makes the input take up all the space */
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+}
+
+
+.search-bar::placeholder {
+  color: #999;
+}
+
+.search-bar:focus {
+  outline: none;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Position the search icon */
+.search-icon {
+  background-color: transparent; /* Make the button background transparent */
+  border: none; /* Remove border */
+  cursor: pointer; /* Make it clickable */
+  display: flex; /* Use flexbox to align the icon */
+  justify-content: center; /* Center the icon horizontally */
+  align-items: center; /* Center the icon vertically */
+  color: #ff8c00; /* Set the icon color to orange */
+  font-size: 1.8rem; /* Set the icon size */
+  padding-left: 15px; /* Add some space between the icon and input */
+}
+
+.search-icon:hover {
+  color: #e67e00; /* Darker orange on hover */
+}
+
+.search-icon img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 
 /* Styling for content section */
