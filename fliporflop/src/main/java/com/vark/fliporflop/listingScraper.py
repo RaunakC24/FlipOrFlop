@@ -36,6 +36,8 @@ def get_image_url(image):
 
 image_set = property_listings[0].find_all_next('img', 'embla__slide__img image-container')
 good_images = [get_image_url(image) for image in image_set if get_image_url(image)]
+good_images.reverse()
+
 # Loop through each property listing and extract relevant data
 for property_listing in property_listings:
     if len(good_images) < 1:
