@@ -9,6 +9,10 @@ const GlobeComponent = () => {
 
     // Scene, Camera, Renderer Setup
     const scene = new THREE.Scene();
+
+    // Set the background of the scene to white
+    scene.background = new THREE.Color(0xffffff);  // Set background to white
+
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -24,7 +28,8 @@ const GlobeComponent = () => {
     const globe = new THREE.Mesh(geometry, material);
     scene.add(globe);
 
-    camera.position.z = 15;
+    camera.position.set(0, -3, 15);  // Set Z for distance, Y for vertical centering
+    
 
     // Animation loop
     const animate = () => {
