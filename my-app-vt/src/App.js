@@ -18,6 +18,9 @@ function App() {
 
   return (
     <div className="App">
+      {/* Add the header bar here */}
+      <div className="header-bar">
+      </div>
       {/* Main Content Section */}
       <Routes>
         <Route path="/:cityOrZip" element={<HouseList />} />
@@ -37,6 +40,7 @@ function App() {
                 backgroundRepeat: 'no-repeat',
               }}
             >
+             
               <div className="top-right-logo">FliporFlop.com</div>
 
               <div className="overlay-content">
@@ -87,8 +91,8 @@ function App() {
             <section className="intro-section">
               <h2>Rating Scale</h2>
               <img src="/rating.png" style={{ width: '600px', height: 'auto' }} />
-              <p>Each house is rated on a scale 1(worst) - 5(best)</p>
-              <p>Our ratings are based on the parameters below:</p>
+              <p class="rating-description">Each house is rated on a scale 1(worst) - 5(best)</p>
+              <p class="rating-description">Our ratings are based on the parameters below:</p>
               <hr className="orange-line" />
             </section>
 
@@ -111,7 +115,7 @@ function App() {
               <div className="factor">
                 <div className="neighborhood-container">
                   <h2 className="neighborhood-title">
-                    The quality of a neighborhood can greatly affect property value.
+                    The quality of a neighborhood
                   </h2>
                   <p className="neighborhood-text">
                     Desirable neighborhoods with amenities, parks, low crime rates, and good accessibility can command higher prices and attract both buyers and renters.
@@ -122,7 +126,15 @@ function App() {
 
               {/* third factor section - school systems */}
               <div className="factor">
-                <h2>School systems</h2>
+                <div className="school-container">
+                  <h2 className="school-title">
+                    The quality of the school systems
+                  </h2>
+                  <p className="school-text">
+                    The quality of local school systems is a major consideration for families when buying a home. In many caes, homes in areas with highly rated schools command higher prices and have faster sales.
+                  </p>
+                  <img src="/schoolsystem.png" alt="School Systems" className="school-image" />
+                </div>
               </div>
 
               {/* fourth factor section - year of build */}
@@ -135,8 +147,50 @@ function App() {
                 <h2>Turnover rate of homes</h2>
               </div>
             </section>
+
+
+
+            {/* Embedded Websites Section */}
+            <section className="resources-section">
+              <h2>Tips & Tricks for Flipping</h2>
+              <div className="resources-container">
+                <hr className="orange-line" />
+
+
+                <div className="resource-item">
+                  <a href="https://www.hgtv.com/lifestyle/real-estate/house-flipping-dos-donts-from-egypt-sherrod" target="_blank" rel="noopener noreferrer">
+                    <img src="/flipping.png" alt="HGTV Preview" className="resource-image" />
+                  </a>
+                  <a href="https://www.hgtv.com/lifestyle/real-estate/house-flipping-dos-donts-from-egypt-sherrod" target="_blank" rel="noopener noreferrer">
+                    Visit HGTV: House Flipping Do's & Don'ts
+                  </a>
+                </div>
+
+                <div className="resource-item">
+                  <a href="https://www.ramseysolutions.com/real-estate/how-to-flip-a-house" target="_blank" rel="noopener noreferrer">
+                    <img src="/flipping2.png" alt="Website Preview 2" className="resource-image" />
+                  </a>
+                  <a href="https://www.ramseysolutions.com/real-estate/how-to-flip-a-house" target="_blank" rel="noopener noreferrer">
+                    Visit Ramsey: How to Flip a House
+                  </a>
+                </div>
+
+                <div className="resource-item">
+                  <a href="https://www.thisoldhouse.com/home-finances/21163281/tips-for-house-flipping" target="_blank" rel="noopener noreferrer">
+                    <img src="/flipping3.png" alt="Website Preview 3" className="resource-image" />
+                  </a>
+                  <a href="https://www.thisoldhouse.com/home-finances/21163281/tips-for-house-flipping" target="_blank" rel="noopener noreferrer">
+                    visit ThisOldHouse: Tips for House Flipping
+                  </a>
+                </div>
+
+              </div>
+            </section>
+
+
           </>
         } />
+
       </Routes>
 
       {/* Footer Section */}
