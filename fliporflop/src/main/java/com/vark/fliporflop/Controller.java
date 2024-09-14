@@ -85,11 +85,11 @@ public class Controller {
     private static HomeEvaluationResponse.TaxData getTaxData(String line) {
         String[] parts = line.split(", ");
 
-        int year = Integer.parseInt(parts[0].split(": ")[1]);
-        double taxPaid = Double.parseDouble(parts[1].split(": ")[1].replace("$", ""));
-        double taxAssessment = Double.parseDouble(parts[2].split(": ")[1].replace("$", ""));
-        double land = Double.parseDouble(parts[3].split(": ")[1].replace("$", ""));
-        double improvement = Double.parseDouble(parts[4].split(": ")[1].replace("$", ""));
+        int year = Integer.parseInt(parts[0].replaceAll("\\D", "").isEmpty() ? "0" : parts[0].replaceAll("\\D", ""));
+        double taxPaid = Double.parseDouble(parts[1].replaceAll("\\D", "").isEmpty() ? "0" : parts[1].replaceAll("\\D", ""));
+        double taxAssessment = Double.parseDouble(parts[2].replaceAll("\\D", "").isEmpty() ? "0" : parts[2].replaceAll("\\D", ""));
+        double land = Double.parseDouble(parts[3].replaceAll("\\D", "").isEmpty() ? "0" : parts[3].replaceAll("\\D", ""));
+        double improvement = Double.parseDouble(parts[4].replaceAll("\\D", "").isEmpty() ? "0" : parts[4].replaceAll("\\D", ""));
 
         return new HomeEvaluationResponse.TaxData(year, taxPaid, taxAssessment, land, improvement);
     }
