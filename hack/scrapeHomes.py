@@ -1,16 +1,12 @@
-#Quick Documentation
-#scrapes the url and grabs the following:
-#   -price
-#   -sq ft
-#   -year built
-
 import json
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
-
+from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def getHighlights(soup):
     #---------------------- highlights
@@ -81,6 +77,9 @@ def scrape_amenities(soup):
     
     return amenities_data
 
+def grabImage(soup):
+    img = soup.find("", "")
+    # Your implementation here
 
 def extract_year_built(data):
     # Check if "Year Built" is available in the data
@@ -98,7 +97,6 @@ def extract_year_built(data):
                 return detail.split(":")[1].strip()
     return None
 
-
 def extract_sq_ft(data):
     # Check in different sections where square footage is mentioned
     if "Interior Spaces" in data:
@@ -111,6 +109,65 @@ def extract_sq_ft(data):
                 return detail.split(":")[1].strip()
     return None
 
+def getPriceAndAddress(driver):
+    try:
+        # Wait for the elements to be present
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "price"))
+        )
+        price = driver.find_element(By.ID, "price").text
+    except NoSuchElementException:
+        price = "Price not found"
+
+    try:
+        address = driver.find_element(By.CLASS_NAME, "property-info-address-main").text
+    except NoSuchElementException:
+        address = "Address not found"
+    
+    print("price: " + price)
+    print("python scrapeHomes.py " + address)
+
+def scrape_images(driver):
+    # List to store image URLs
+    good_images = []
+
+    try:
+        # Find all <img> elements with the specific class
+        image_elements = driver.find_elements(By.CLASS_NAME, "primary-carousel-slide-img")
+
+        for image in image_elements:
+            try:
+                # Check 'src' attribute
+                src = image.get_attribute('src')
+                if src and ".jpg" in src:
+                    good_images.append(src)
+                    break
+            except StaleElementReferenceException as e:
+                print(f"StaleElementReferenceException when extracting 'src': {e}")
+            
+            try:
+                # Check 'data-src' attribute
+                data_src = image.get_attribute('data-src')
+                if data_src and ".jpg" in data_src:
+                    good_images.append(data_src)
+                    break
+            except StaleElementReferenceException as e:
+                print(f"StaleElementReferenceException when extracting 'data-src': {e}")
+            
+            try:
+                # Check 'data-image' attribute
+                data_image = image.get_attribute('data-image')
+                if data_image and ".jpg" in data_image:
+                    good_images.append(data_image)
+                    break
+            except StaleElementReferenceException as e:
+                print(f"StaleElementReferenceException when extracting 'data-image': {e}")
+    except TimeoutException as e:
+        print(f"TimeoutException: {e}")
+
+    print("Image URLs:")
+    for img_url in good_images:
+        print(img_url)
 
 def run(url):
     # Setup Chrome WebDriver using WebDriverManager
@@ -123,9 +180,11 @@ def run(url):
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
     # Now use the updated soup to scrape data
-    print("Description:")
-    scrape_description(soup)
-    
+    # print("Description:")
+    # scrape_description(soup)
+
+    getPriceAndAddress(driver)
+
     print("\nTax Data:")
     getTaxData(soup)
     
@@ -133,14 +192,13 @@ def run(url):
     amenities = scrape_amenities(soup)
     print(json.dumps(amenities, indent=4))
 
-    print("\nSqFt:")
-    print(extract_sq_ft(amenities))
-    
-    print("\nYear Built:")
-    print(extract_year_built(amenities))
+    print("\nSqFt:" + str(extract_sq_ft(amenities)))
+    print("\nYear Built:" + str(extract_year_built(amenities)))
+
+    # Scrape images
+    scrape_images(driver)
 
     driver.quit()
-
 
 urls = [
     "https://www.homes.com/property/565-brush-mountain-rd-blacksburg-va/9prkxp50m85ny/",
