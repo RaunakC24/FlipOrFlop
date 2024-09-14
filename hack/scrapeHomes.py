@@ -167,9 +167,7 @@ def scrape_images(driver):
     except TimeoutException as e:
         print(f"TimeoutException: {e}")
 
-    print("Image URLs:")
-    for img_url in good_images:
-        print(img_url)
+    print("Image URLs: " + str(good_images[0]))
 
 def run():
     url = "https://www.homes.com/"
@@ -183,7 +181,7 @@ def run():
     # Reinitialize `soup` with the updated page source
 
 
-    time.sleep(2)
+    time.sleep(1)
     driver.find_element(By.XPATH, "//input[@aria-label='Place, Neighborhood, School or Agent']").send_keys(sys.argv[1])
     time.sleep(1)
     driver.find_element(By.ID, "propertySearchBtn").click()
