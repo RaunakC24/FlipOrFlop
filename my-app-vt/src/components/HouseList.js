@@ -37,6 +37,7 @@ const HouseList = () => {
       return <Typography variant="h5">Loading houses...</Typography>;
     }
 
+<<<<<<< HEAD
     return (
       <div>
         <Typography variant="h4" gutterBottom>
@@ -89,5 +90,22 @@ const HouseList = () => {
       </div>
     );
   };
+=======
+  return (
+    <div>
+      <h2>Houses in {cityOrZip}</h2>
+      <ul>
+        {houses.map((house) => (
+          <li key={house.id}>
+            <Link to={`/${house.id}`}>
+              {house.address} - {house.price}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+>>>>>>> b51aac500585a8675a1ede526508fc5fa2e87b9f
 
 export default HouseList;

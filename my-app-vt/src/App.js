@@ -3,7 +3,7 @@ import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import { IoIosSearch } from "react-icons/io";
-import HouseList from './components/HouseList';  
+import HouseList from './components/HouseList';
 import HouseDetail from './components/HouseDetail';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
 
   const handleSearch = () => {
     if (searchTerm) {
-      navigate(`/houses/${encodeURIComponent(searchTerm)}`);  // Use navigate for routing
+      navigate(`/${encodeURIComponent(searchTerm)}`);  // Use navigate for routing
     }
   };
 
@@ -20,8 +20,8 @@ function App() {
     <div className="App">
       {/* Main Content Section */}
       <Routes>
-        <Route path="/houses/:cityOrZip" element={<HouseList />} />
-        <Route path="/house/:id" element={<HouseDetail />} />
+        <Route path="/:cityOrZip" element={<HouseList />} />
+        <Route path="/:id" element={<HouseDetail />} />
 
         {/* Default Home Page */}
         <Route path="/" element={
@@ -48,8 +48,8 @@ function App() {
                     type="text"
                     placeholder="Enter a City or ZIP code"
                     className="search-bar"
-                    value={searchTerm} 
-                    onChange={(e) => setSearchTerm(e.target.value)} 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     onKeyUp={(e) => {
                       if (e.key === 'Enter') {
                         handleSearch();
@@ -84,25 +84,53 @@ function App() {
               </div>
             </section>
 
-            {/* New Static Introduction Section */}
             <section className="intro-section">
-              <h2>Some Factors We Consider Are:</h2>
+              <h2>Rating Scale</h2>
+              <img src="/rating.png" style={{ width: '600px', height: 'auto' }} />
+              <p>Each house is rated on a scale 1(worst) - 5(best)</p>
+              <p>Our ratings are based on the parameters below:</p>
+              <hr className="orange-line" />
             </section>
 
-            {/* Parallax-Scrolling Factors Section */}
             <section className="factors-section">
+
+              {/* first factor section - the rate of change of prices in the area */}
               <div className="factor">
-                <h2>The rate of change in property prices</h2>
+                <div className="rate-of-change-container">
+                  <h2 className="rate-of-change-title">
+                    The rate of change in property prices
+                  </h2>
+                  <p className="rate-of-change-text">
+                    The rate at which property prices are increasing (or decreasing) in the area is a strong indicator of potential return on investment. We analyze local market trends over the past few years. Areas with high demand, improved infrastructure, or urban development tend to see faster appreciation.
+                  </p>
+                  <img src="/rateofchange.png" alt="Rate of Change" className="rate-of-change-image" />
+                </div>
               </div>
+
+              {/* second factor section - the neighborhood quality */}
               <div className="factor">
-                <h2>Neighborhood quality</h2>
+                <div className="neighborhood-container">
+                  <h2 className="neighborhood-title">
+                    The quality of a neighborhood can greatly affect property value.
+                  </h2>
+                  <p className="neighborhood-text">
+                    Desirable neighborhoods with amenities, parks, low crime rates, and good accessibility can command higher prices and attract both buyers and renters.
+                  </p>
+                  <img src="/neighborhood.png" alt="Neighborhood" className="neighborhood-image" />
+                </div>
               </div>
+
+              {/* third factor section - school systems */}
               <div className="factor">
                 <h2>School systems</h2>
               </div>
+
+              {/* fourth factor section - year of build */}
               <div className="factor">
                 <h2>Year the house was built</h2>
               </div>
+
+              {/* fifth factor section - turnover rate */}
               <div className="factor">
                 <h2>Turnover rate of homes</h2>
               </div>
