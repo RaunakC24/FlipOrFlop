@@ -6,12 +6,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+      <img src="/logo.png" alt="Logo" className="App-logo" />
+
+
         {/* Update your h1 here with the new spans */}
         <h1 className="bold-orange-text">
-  <span className="flip-text">flip</span> or <span className="flop-text">flop</span>
-</h1>
+        <span className="flip-text">flip</span> or <span className="flop-text">flop</span>
+        </h1>
 
-        <p className="bold-orange-text">Find out if your property is worth flipping or turning into an Airbnb.</p>
       </header>
 
       {/* Globe component */}

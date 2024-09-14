@@ -28,7 +28,7 @@ const GlobeComponent = () => {
     const globe = new THREE.Mesh(geometry, material);
     scene.add(globe);
 
-    camera.position.set(0, -3, 15);  // Set Z for distance, Y for vertical centering
+    camera.position.set(0, -4, 15);  // Set Z for distance, Y for vertical centering
     
 
     // Animation loop

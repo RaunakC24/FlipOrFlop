@@ -5,10 +5,18 @@ body, html {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #ffffff;
+  background-color: #f5d7c5;
   color: white;
   height: 100%;
   /* overflow-x: hidden; */
+}
+
+.App-logo {
+  position: absolute;
+  top: 20px;      /* Adjust the top position */
+  left: 20px;     /* Adjust the left position */
+  width: 100px;   /* Adjust the width of the logo */
+  height: auto;   /* Keep the aspect ratio */
 }
 
 .App-header {
