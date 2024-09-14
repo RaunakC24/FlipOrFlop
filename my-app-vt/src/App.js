@@ -22,7 +22,7 @@ function App() {
       >
         {/* Additional content can go here, like a search bar */}
         <div className="overlay-content">
-          <h2 className="overlay-heading">Find a Home You Love</h2>
+          <h2 className="overlay-heading">Unlock the Potential of Every Home</h2>
           <input
             type="text"
             placeholder="Enter an address, neighborhood, city, or ZIP code"
@@ -37,7 +37,7 @@ function App() {
           <div className="step">
             <h3>Step 1</h3>
             <img src="/image1.png" alt="Step 1" style={{ width: '400px', height: '300px' }} />
-            <p>Choose a neighborhood you are looking to buy in</p>
+            <p>Choose a neighborhood</p>
           </div>
           <div className="step">
             <h3>Step 2</h3>
@@ -46,7 +46,7 @@ function App() {
           </div>
           <div className="step">
             <h3>Step 3</h3>
-            <img src="/step3image.jpg" alt="Step 3" style={{ width: '200px', height: '150px' }} />
+            <img src="/image3.png" alt="Step 3" style={{ width: '400px', height: '300px' }} />
             <p>Get your rating</p>
           </div>
         </div>
