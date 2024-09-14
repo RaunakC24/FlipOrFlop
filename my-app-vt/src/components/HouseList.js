@@ -54,7 +54,7 @@ const HouseList = () => {
             {houses.map((house, index) => (
               <Grid item key={index} xs={12} sm={6} md={4}>
                 <Card sx={{ maxWidth: 345 }}>
-                  <CardActionArea component={Link} to={`/${index}`}>
+                <CardActionArea component={Link} to={`/home/${encodeURIComponent(house.address)}`}>
                     {/* Use the house image from the API or a placeholder */}
                     <CardMedia
                       component="img"
