@@ -126,6 +126,19 @@ body, html {
   border-radius: 50px;
 }
 
+.step {
+  text-align: center;
+}
+
+.step h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.step p {
+  color: #555;
+}
 
 .search-bar::placeholder {
   color: #999;
@@ -157,4 +170,48 @@ body, html {
   width: 24px;
   height: 24px;
   cursor: pointer;
+}
+
+.footer {
+  background-color: #f9f9f9;
+  padding: 20px 0;
+  color: #333;
+  text-align: center;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.footer-section {
+  margin: 10px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.footer-section h4 {
+  font-size: 1.2rem;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.footer-section p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 5px 0;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.footer-bottom p {
+  font-size: 0.9rem;
+  color: #333;
 }

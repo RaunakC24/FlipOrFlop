@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Footer from './Footer'; // Import Footer from a separate component
 import { IoIosSearch } from "react-icons/io"; // Importing the search icon
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 function App() {
