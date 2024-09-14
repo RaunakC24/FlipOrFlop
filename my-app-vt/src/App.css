@@ -3,25 +3,11 @@ body, html {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #f5d7c5;
+  background-color: #fff;
   color: white;
   height: 100%;
 }
 
-/* Logo */
-.App-logo {
-  width: 300px;   /* Adjust the size as needed */
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Header */
-.App-header {
-  padding: 10px 0; /* Reduce the header padding to make it smaller */
-  text-align: center;
-  background-color: transparent;
-}
 
 /* Background image section */
 .background-image-section {

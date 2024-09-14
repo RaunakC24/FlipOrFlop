@@ -5,9 +5,8 @@ import Footer from './Footer'; // Import Footer from a separate component
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src="/logo.png" alt="Logo" className="App-logo" />
-      </header>
+
+
 
       {/* Set background image inline */}
       <section
@@ -42,7 +41,7 @@ function App() {
           </div>
           <div className="step">
             <h3>Step 2</h3>
-            <img src="/step2image.jpg" alt="Step 2" style={{ width: '200px', height: '150px' }} />
+            <img src="/image2.png" alt="Step 2" style={{ width: '400px', height: '300px' }} />
             <p>Select a house</p>
           </div>
           <div className="step">
