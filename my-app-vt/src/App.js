@@ -7,9 +7,6 @@ import { IoIosSearch } from "react-icons/io"; // Importing the search icon
 function App() {
   return (
     <div className="App">
-
-
-
       {/* Set background image inline */}
       <section
         className="background-image-section"
@@ -60,9 +57,9 @@ function App() {
         </div>
       </section>
 
-      <section className="content-section" style={{ height: '200vh', backgroundColor: '#ffffff' }}>
-        <h2>Scroll Down</h2>
-        <p>Scroll down to see the globe grow in size!</p>
+      {/* Additional Sections */}
+      <section className="steps-section">
+        {/* Add your steps content here */}
       </section>
 
       {/* Include the Footer component */}
