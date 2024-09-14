@@ -3,9 +3,8 @@ body, html {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #fff;
-  color: white;
   height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Background image section */
@@ -16,6 +15,18 @@ body, html {
   height: 70vh;
   position: relative;
 }
+.top-right-logo {
+  position: absolute;
+  top: 20px;  /* Distance from the top */
+  right: 20px;  /* Distance from the right */
+  font-size: 1.5rem;  /* Adjust font size */
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  color: white;  /* Text color */
+  padding: 10px 20px;  /* Padding for some spacing */
+  border-radius: 8px;  /* Rounded corners */
+  z-index: 1000;  /* Ensure it stays on top of everything */
+}
 
 .overlay-content {
   position: absolute;
@@ -23,8 +34,6 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
   color: white;
 }
 
@@ -32,46 +41,31 @@ body, html {
   font-size: 2.5rem;
   margin-bottom: 20px;
   font-weight: bold;
-  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Search bar container with icon */
+/* Search bar styling */
 .search-container {
   position: relative;
-  width: 80%; /* Set the width of the search bar container */
-  max-width: 1200px; /* Set the max-width to ensure it doesn't stretch too much */
-  margin: 0 auto; /* Center the search container */
-  display: flex; /* Use flexbox to align the elements */
-  align-items: center; /* Align vertically in the center */
-  background-color: #fff; /* Background color for the search bar */
-  border-radius: 50px; /* Rounded corners */
-  padding: 10px 20px; /* Padding inside the search bar */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for a nice effect */
-}
-
-/* Search bar container with icon */
-.search-container {
-  position: relative;
-  width: 80%; /* Set the width of the search bar container */
-  max-width: 1200px; /* Set the max-width to ensure it doesn't stretch too much */
-  margin: 0 auto; /* Center the search container */
-  display: flex; /* Use flexbox to align the elements */
-  align-items: center; /* Align vertically in the center */
-  background-color: #fff; /* Background color for the search bar */
-  border-radius: 50px; /* Rounded corners */
-  padding: 10px 20px; /* Padding inside the search bar */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for a nice effect */
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 50px;
+  padding: 10px 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar {
   border: none;
   outline: none;
-  flex-grow: 1; /* This makes the input take up all the space */
+  flex-grow: 1;
   padding: 15px;
   font-size: 1.2rem;
   border-radius: 50px;
 }
-
 
 .search-bar::placeholder {
   color: #999;
@@ -82,48 +76,30 @@ body, html {
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Position the search icon */
+/* Search icon styling */
 .search-icon {
-  background-color: transparent; /* Make the button background transparent */
-  border: none; /* Remove border */
-  cursor: pointer; /* Make it clickable */
-  display: flex; /* Use flexbox to align the icon */
-  justify-content: center; /* Center the icon horizontally */
-  align-items: center; /* Center the icon vertically */
-  color: #ff8c00; /* Set the icon color to orange */
-  font-size: 1.8rem; /* Set the icon size */
-  padding-left: 15px; /* Add some space between the icon and input */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ff8c00;
+  font-size: 1.8rem;
+  padding-left: 15px;
 }
 
 .search-icon:hover {
-  color: #e67e00; /* Darker orange on hover */
+  color: #e67e00;
 }
 
-.search-icon img {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
+/* Steps Section */
+.steps-section {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
 }
 
-/* Styling for content section */
-.content-section {
-  height: 100vh;
+.steps-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  background-color: #ffffff;
-  color: #333;
-}
-
-.content-section h2 {
-  font-size: 2rem;
-  color: #555;
-  margin-bottom: 20px;
-}
-
-.content-section p {
-  font-size: 1.2rem;
-  border-radius: 50px;
 }
 
 .step {
@@ -140,78 +116,77 @@ body, html {
   color: #555;
 }
 
-.search-bar::placeholder {
-  color: #999;
-}
-
-.search-bar:focus {
-  outline: none;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Position the search icon */
-.search-icon {
-  background-color: transparent; /* Make the button background transparent */
-  border: none; /* Remove border */
-  cursor: pointer; /* Make it clickable */
-  display: flex; /* Use flexbox to align the icon */
-  justify-content: center; /* Center the icon horizontally */
-  align-items: center; /* Center the icon vertically */
-  color: #ff8c00; /* Set the icon color to orange */
-  font-size: 1.8rem; /* Set the icon size */
-  padding-left: 15px; /* Add some space between the icon and input */
-}
-
-.search-icon:hover {
-  color: #e67e00; /* Darker orange on hover */
-}
-
-.search-icon img {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-}
-
-.footer {
-  background-color: #f9f9f9;
-  padding: 20px 0;
-  color: #333;
+/* Intro Section (Static before the factors) */
+.intro-section {
+  padding: 40px;
+  background-color: #f0f0f0; /* Light background to contrast the factors */
   text-align: center;
 }
 
-.footer-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  max-width: 1200px;
+.intro-section h2 {
+  font-size: 2.5rem;
+  color: #333; /* Darker color for readability */
+  margin: 0;
 }
 
-.footer-section {
-  margin: 10px;
-  flex: 1;
-  min-width: 150px;
+/* Factors Section with scrolling effect */
+.factors-section {
+  position: relative;
+  height: 500vh; /* Make the section tall for scrolling */
 }
 
-.footer-section h4 {
-  font-size: 1.2rem;
-  color: #000;
-  margin-bottom: 10px;
-}
-
-.footer-section p {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 5px 0;
-}
-
-.footer-bottom {
-  margin-top: 20px;
-  padding-top: 10px;
-  border-top: 1px solid #ccc;
-}
-
-.footer-bottom p {
-  font-size: 0.9rem;
+.factor {
+  position: sticky;
+  top: 0%; /* Adjusted to move the text higher */
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 3rem;
   color: #333;
+  height: 100vh; /* Each factor takes up a full screen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-delay: 0s;
+}
+
+.factor:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.factor:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.factor:nth-child(3) {
+  animation-delay: 4s;
+}
+
+.factor:nth-child(4) {
+  animation-delay: 6s;
+}
+
+.factor:nth-child(5) {
+  animation-delay: 8s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Footer styling */
+.footer {
+  padding: 40px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
 }

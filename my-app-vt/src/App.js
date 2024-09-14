@@ -1,27 +1,28 @@
 import React from 'react';
 import './App.css';
-import Footer from './Footer'; // Import Footer from a separate component
-import { IoIosSearch } from "react-icons/io"; // Importing the search icon
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import Footer from './Footer';
+import { IoIosSearch } from "react-icons/io";
 
 function App() {
   return (
     <div className="App">
-      {/* Set background image inline */}
+      <div className="top-right-logo">
+        FliporFlop.com
+      </div>
+  
       <section
         className="background-image-section"
         style={{
-          backgroundImage: 'url(/homestogetherimage.jpg)', // Correct reference to the image in public folder
-          backgroundSize: 'cover', // Ensure the image covers the section
-          backgroundPosition: 'center 70%', // Align the image to cut the sky off
-          height: '70vh', // Adjust the height to give the cutoff look
+          backgroundImage: 'url(/homestogetherimage.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 70%',
+          height: '70vh',
           width: '100vw',
           backgroundRepeat: 'no-repeat',
         }}
       >
-       <div className="overlay-content">
-          <h2 className="overlay-heading">Find a Home You Love</h2>
+        <div className="overlay-content">
+          <h2 className="overlay-heading">Discover Your Next Great Investment</h2>
 
           {/* Search bar container */}
           <div className="search-container">
@@ -37,9 +38,9 @@ function App() {
         </div>
       </section>
 
-      {/* New Section with Steps and Images */}
-      <section className="steps-section" style={{ padding: '20px', backgroundColor: '#f9f9f9' }}>
-        <div className="steps-container" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+      {/* Steps Section */}
+      <section className="steps-section">
+        <div className="steps-container">
           <div className="step">
             <h3>Step 1</h3>
             <img src="/image1.png" alt="Step 1" style={{ width: '400px', height: '300px' }} />
@@ -58,12 +59,31 @@ function App() {
         </div>
       </section>
 
-      {/* Additional Sections */}
-      <section className="steps-section">
-        {/* Add your steps content here */}
+      {/* New Static Introduction Section */}
+      <section className="intro-section">
+        <h2>Some Factors We Consider Are:</h2>
       </section>
 
-      {/* Include the Footer component */}
+      {/* Parallax-Scrolling Factors Section */}
+      <section className="factors-section">
+        <div className="factor">
+          <h2>The rate of change in property prices</h2>
+        </div>
+        <div className="factor">
+          <h2>Neighborhood quality</h2>
+        </div>
+        <div className="factor">
+          <h2>School systems</h2>
+        </div>
+        <div className="factor">
+          <h2>Year the house was built</h2>
+        </div>
+        <div className="factor">
+          <h2>Turnover rate of homes</h2>
+        </div>
+      </section>
+
+      {/* Footer Section */}
       <Footer />
     </div>
   );
