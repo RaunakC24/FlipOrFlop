@@ -106,6 +106,12 @@ body, html {
   text-align: center;
 }
 
+.step img:hover {
+  transform: scale(1.05); /* Increases the size by 10% */
+  transition: transform 0.3s ease-in-out; /* Adds a smooth transition effect */
+}
+
+
 .step h3 {
   margin-bottom: 10px;
   font-size: 1.5rem;
@@ -119,7 +125,7 @@ body, html {
 /* Intro Section (Static before the factors) */
 .intro-section {
   padding: 40px;
-  background-color: #f0f0f0; /* Light background to contrast the factors */
+  background-color: #ffffff; /* Light background to contrast the factors */
   text-align: center;
 }
 
@@ -135,11 +141,83 @@ body, html {
   height: 500vh; /* Make the section tall for scrolling */
 }
 
+.orange-line {
+  border: none;
+  height: 3px;
+  background-color: #ff8c00; /* Orange color */
+  margin: 40px auto; /* Space around the line */
+  width: 80%; /* Adjust width as necessary */
+}
+
+.rate-of-change-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: -50px; /* Move the content up by 50px, adjust as needed */
+}
+
+.rate-of-change-title {
+  color: #ff8c00; /* Orange color */
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 2.5rem; /* Adjust size as needed */
+  margin: 50;
+  margin-left: 80px; /* Moves the title 50px to the right, adjust as necessary */
+
+}
+
+.rate-of-change-text {
+  max-width: 50%; /* Adjust text width */
+  margin-top: 60px; /* Space from the title */
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-left: 80px;
+}
+
+.rate-of-change-image {
+  max-width: 40%; /* Adjust width of the image */
+  height: auto;
+  margin-left: auto; /* Push image to the far right */
+}
+
+.neighborhood-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: -50px;
+  background-color: #ffffff; /* Add this line to change the background color */
+
+}
+
+.neighborhood-title {
+  color: #ff8c00;
+  font-size: 2.5rem;
+  margin-left: 80px;
+  margin-bottom: 20px;
+}
+
+.neighborhood-text {
+  max-width: 50%;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-left: 80px;
+}
+
+.neighborhood-image {
+  max-width: 40%;
+  height: auto;
+  margin-left: auto;
+}
+
+
+
 .factor {
   position: sticky;
   top: 0%; /* Adjusted to move the text higher */
-  transform: translateY(-50%);
-  text-align: center;
+  transform: translateY(0);
+  text-align: left;
   font-size: 3rem;
   color: #333;
   height: 100vh; /* Each factor takes up a full screen height */

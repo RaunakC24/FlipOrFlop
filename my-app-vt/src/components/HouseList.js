@@ -24,7 +24,7 @@ const HouseList = () => {
       <ul>
         {houses.map((house) => (
           <li key={house.id}>
-            <Link to={`/house/${house.id}`}>
+            <Link to={`/${house.id}`}>
               {house.address} - {house.price}
             </Link>
           </li>
