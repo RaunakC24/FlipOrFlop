@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -13,15 +13,7 @@ const HouseList = () => {
   const { cityOrZip } = useParams();
   const [houses, setHouses] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Image paths for the ratings (1 to 5)
-  const ratingImages = [
-    '/rating1.png',
-    '/rating2.png',
-    '/rating3.png',
-    '/rating4.png',
-    '/rating5.png',
-  ];
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch house data
@@ -49,42 +41,27 @@ const HouseList = () => {
 
   // Function to render rating images based on the house rating
   const renderRatingImages = (rating) => {
-    if (rating === 1) {
-      return <img src='/rating1.png' alt="1 Star" className="rating-image" />;
-    } else if (rating === 2) {
-      return (
-        <>
-          <img src='/rating2.png' alt="2 Star" className="rating-image" />
-        </>
-      );
-    } else if (rating === 3) {
-      return (
-        <>
-          <img src='/rating3.png' alt="3 Star" className="rating-image" />
-        </>
-      );
-    } else if (rating === 4) {
-      return (
-        <>
-          <img src='/rating4.png' alt="4 Star" className="rating-image" />
-        </>
-      );
-    } else if (rating === 5) {
-      return (
-        <>
-          <img src='/rating5.png' alt="5 Star" className="rating-image" />
-        </>
-      );
-    } else {
-      return null;
-    }
+    const ratingMap = {
+      1: '/rating1.png',
+      2: '/rating2.png',
+      3: '/rating3.png',
+      4: '/rating4.png',
+      5: '/rating5.png',
+    };
+    return ratingMap[rating] ? (
+      <img src={ratingMap[rating]} alt={`${rating} Star`} className="rating-image" />
+    ) : null;
   };
-  
 
   return (
     <div className="house-list-container">
+      {/* Add FliporFlop.com in the top-right corner */}
+      <div className="top-right-logo" onClick={() => navigate('/')}>
+        FliporFlop.com
+      </div>
+
       <Typography className="house-list-header" variant="h4" gutterBottom>
-        Houses in {cityOrZip}
+        Showing Results For {cityOrZip}
       </Typography>
 
       {/* Wrap the grid with a Box for margin and padding */}
