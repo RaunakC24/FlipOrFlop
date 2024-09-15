@@ -17,7 +17,7 @@ const HouseList = () => {
 
   useEffect(() => {
     // Fetch house data
-    fetch('http://localhost:8080/getListOfHomes', {
+    fetch('http://25.54.196.118:8080/getListOfHomes', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
