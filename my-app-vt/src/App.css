@@ -274,9 +274,9 @@ body, html {
 .school-text {
   max-width: 50%;
   margin-top: 20px;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   line-height: 1.6;
-  margin-left: 80px;
+  margin-left: 120px;
 }
 
 .school-image {
@@ -285,6 +285,66 @@ body, html {
   margin-left: auto;
 }
 
+
+.year-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 30px;
+  background-color: #ffffff; /* Add this line to change the background color */
+}
+
+.year-title {
+  color: #ff8c00;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  margin-left: 80px;
+}
+
+.year-text {
+  max-width: 50%;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  margin-left: 80px;
+  text-align: center;
+}
+
+.year-image {
+  max-width: 40%; /* Adjust the width of the image */
+  height: auto;
+  margin-top: 20px; /* Add some space between text and image */
+}
+
+.rate-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 30px;
+  background-color: #ffffff; /* Add this line to change the background color */
+}
+
+.rate-title {
+  color: #ff8c00;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  margin-left: 80px;
+}
+
+.rate-text {
+  max-width: 50%;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  margin-left: 80px;
+  text-align: center;
+}
+
+.rate-image {
+  max-width: 40%; /* Adjust the width of the image */
+  height: auto;
+  margin-top: 20px; /* Add some space between text and image */
+}
 
 .factor {
   position: sticky;
@@ -384,9 +444,82 @@ body, html {
 
 /* Footer styling */
 .footer {
-  margin-top: 50px;
-  padding: 40px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
+  background-color: #f2f2f2; /* Light gray background for modern look */
+  color: #333; /* Dark text for contrast */
+  padding: 40px 20px;
+  font-size: 1rem;
 }
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc; /* Adds a separator line */
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px; /* Ensure it wraps on smaller screens */
+  margin: 10px;
+}
+
+.footer-section h4 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.footer-section p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.footer-logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons svg {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #666;
+  cursor: pointer;
+}
+
+.social-icons svg:hover {
+  color: #ff8c00;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0;
+  color: #666;
+}
+
+.store-icons img {
+  width: 140px;
+  margin: 0 10px;
+}
+
+.footer-bottom p {
+  margin-top: 10px;
+}
+
+/* Ensure responsiveness */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-section {
+    margin-bottom: 20px;
+  }
+}
+

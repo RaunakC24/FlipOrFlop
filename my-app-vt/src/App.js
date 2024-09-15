@@ -19,13 +19,13 @@ function App() {
   return (
     <div className="App">
       {/* Add the header bar here */}
-      <div className="header-bar">
-      </div>
+      <div className="header-bar"></div>
+      
       {/* Main Content Section */}
       <Routes>
         <Route path="/info/:cityOrZip" element={<HouseList />} />
         <Route path="/home/:address" element={<HouseDetail />} />
-
+        
         {/* Default Home Page */}
         <Route path="/" element={
           <>
@@ -40,7 +40,6 @@ function App() {
                 backgroundRepeat: 'no-repeat',
               }}
             >
-             
               <div className="top-right-logo">FliporFlop.com</div>
 
               <div className="overlay-content">
@@ -90,14 +89,13 @@ function App() {
 
             <section className="intro-section">
               <h2>Rating Scale</h2>
-              <img src="/rating.png" style={{ width: '600px', height: 'auto' }} />
-              <p class="rating-description">Each house is rated on a scale 1(worst) - 5(best)</p>
-              <p class="rating-description">Our ratings are based on the parameters below:</p>
+              <img src="/rating.png" style={{ width: '600px', height: 'auto' }} alt="Rating Scale" />
+              <p className="rating-description">Each house is rated on a scale 1(worst) - 5(best)</p>
+              <p className="rating-description">Our ratings are based on the parameters below:</p>
               <hr className="orange-line" />
             </section>
 
             <section className="factors-section">
-
               {/* first factor section - the rate of change of prices in the area */}
               <div className="factor">
                 <div className="rate-of-change-container">
@@ -105,7 +103,7 @@ function App() {
                     The rate of change in property prices
                   </h2>
                   <p className="rate-of-change-text">
-                    The rate at which property prices are increasing (or decreasing) in the area is a strong indicator of potential return on investment. We analyze local market trends over the past few years. Areas with high demand, improved infrastructure, or urban development tend to see faster appreciation.
+                    The rate at which property prices are increasing (or decreasing) in the area is a strong indicator of potential return on investment. We analyze local market trends over the past few years.
                   </p>
                   <img src="/rateofchange.png" alt="Rate of Change" className="rate-of-change-image" />
                 </div>
@@ -114,9 +112,7 @@ function App() {
               {/* second factor section - the neighborhood quality */}
               <div className="factor">
                 <div className="neighborhood-container">
-                  <h2 className="neighborhood-title">
-                    The quality of a neighborhood
-                  </h2>
+                  <h2 className="neighborhood-title">The quality of a neighborhood</h2>
                   <p className="neighborhood-text">
                     Desirable neighborhoods with amenities, parks, low crime rates, and good accessibility can command higher prices and attract both buyers and renters.
                   </p>
@@ -127,11 +123,9 @@ function App() {
               {/* third factor section - school systems */}
               <div className="factor">
                 <div className="school-container">
-                  <h2 className="school-title">
-                    The quality of the school systems
-                  </h2>
+                  <h2 className="school-title">The quality of the school systems</h2>
                   <p className="school-text">
-                    The quality of local school systems is a major consideration for families when buying a home. In many caes, homes in areas with highly rated schools command higher prices and have faster sales.
+                    The quality of local school systems is a major consideration for families when buying a home. In many cases, homes in areas with highly rated schools command higher prices.
                   </p>
                   <img src="/schoolsystem.png" alt="School Systems" className="school-image" />
                 </div>
@@ -139,24 +133,32 @@ function App() {
 
               {/* fourth factor section - year of build */}
               <div className="factor">
-                <h2>Year the house was built</h2>
+                <div className="year-container">
+                  <h2 className="year-title">The year the house was built</h2>
+                  <p className="year-text">
+                    Newer homes often have modern amenities, but older homes might offer better craftsmanship.
+                  </p>
+                  <img src="/oldvsnew.png" alt="Year Built" className="year-image" />
+                </div>
               </div>
 
               {/* fifth factor section - turnover rate */}
               <div className="factor">
-                <h2>Turnover rate of homes</h2>
+                <div className="rate-container">
+                  <h2 className="rate-title">The turnover rate of homes</h2>
+                  <p className="rate-text">
+                    Areas with low turnover rates might indicate stability, but areas with high turnover rates could signal opportunities for investors.
+                  </p>
+                  <img src="/forsale.jpg" alt="Turn Over Rate" className="rate-image" />
+                </div>
               </div>
             </section>
-
-
 
             {/* Embedded Websites Section */}
             <section className="resources-section">
               <h2>Tips & Tricks for Flipping</h2>
               <div className="resources-container">
                 <hr className="orange-line" />
-
-
                 <div className="resource-item">
                   <a href="https://www.hgtv.com/lifestyle/real-estate/house-flipping-dos-donts-from-egypt-sherrod" target="_blank" rel="noopener noreferrer">
                     <img src="/flipping.png" alt="HGTV Preview" className="resource-image" />
@@ -180,17 +182,13 @@ function App() {
                     <img src="/flipping3.png" alt="Website Preview 3" className="resource-image" />
                   </a>
                   <a href="https://www.thisoldhouse.com/home-finances/21163281/tips-for-house-flipping" target="_blank" rel="noopener noreferrer">
-                    visit ThisOldHouse: Tips for House Flipping
+                    Visit This Old House: Tips for House Flipping
                   </a>
                 </div>
-
               </div>
             </section>
-
-
           </>
         } />
-
       </Routes>
 
       {/* Footer Section */}
