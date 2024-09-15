@@ -14,15 +14,6 @@ const HouseList = () => {
   const [houses, setHouses] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Image paths for the ratings (1 to 5)
-  const ratingImages = [
-    '/rating1.png',
-    '/rating2.png',
-    '/rating3.png',
-    '/rating4.png',
-    '/rating5.png',
-  ];
-
   useEffect(() => {
     // Fetch house data
     fetch('http://25.54.196.118:8080/getListOfHomes', {
