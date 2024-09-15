@@ -1,14 +1,30 @@
-.house-list-container {
+/* .house-list-container {
     padding: 20px;
     position: relative;
+    margin-bottom: 100px;
   }
   
   .house-list-header {
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    margin-top: 50px;
     text-align: center;
+  } */
+  
+  .house-list-container {
+    padding: 20px;
+    position: relative;
+    background-color: #f7f7f7;  /* Light background for better contrast */
   }
   
+  .house-list-container .house-list-header {
+    font-size: 1.5rem;  /* Make the header larger for visual appeal */
+    margin-bottom: 30px;
+    text-align: center;
+    margin-top: 10px;  /* Add more space between the top and the header */
+    color: #333;
+  }
+
   .house-card {
     max-width: 345px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
