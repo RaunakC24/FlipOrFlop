@@ -9,7 +9,8 @@ import {
 } from "recharts";
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import './HouseDetail.css'; // Import your CSS file
+import './HouseDetail.css'; 
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const HouseDetail = () => {
   const { address } = useParams();
@@ -20,7 +21,6 @@ const HouseDetail = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const rating = parseFloat(searchParams.get('rating'));
-  
 
   useEffect(() => {
     const fetchHouseDetails = async () => {
@@ -31,8 +31,8 @@ const HouseDetail = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            "address" : address,
-            "rating" : rating
+            "address": address,
+            "rating": rating
           }),
         });
 
@@ -53,7 +53,7 @@ const HouseDetail = () => {
   }, [address]);
 
   if (loading) {
-    return <h5>Loading house details...</h5>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
@@ -67,34 +67,34 @@ const HouseDetail = () => {
   // Function to render rating images based on the house rating
   const renderRatingImages = (rating) => {
     if (rating === 1) {
-        return <img src='/rating1.png' alt="1 Star" className="rating-image" />;
-      } else if (rating === 2) {
-        return (
-          <>
-            <img src='/rating2.png' alt="2 Star" className="rating-image" />
-          </>
-        );
-      } else if (rating === 3) {
-        return (
-          <>
-            <img src='/rating3.png' alt="3 Star" className="rating-image" />
-          </>
-        );
-      } else if (rating === 4) {
-        return (
-          <>
-            <img src='/rating4.png' alt="4 Star" className="rating-image" />
-          </>
-        );
-      } else if (rating === 5) {
-        return (
-          <>
-            <img src='/rating5.png' alt="5 Star" className="rating-image" />
-          </>
-        );
-      } else {
-        return null;
-      }
+      return <img src='/rating1.png' alt="1 Star" className="rating-image" />;
+    } else if (rating === 2) {
+      return (
+        <>
+          <img src='/rating2.png' alt="2 Star" className="rating-image" />
+        </>
+      );
+    } else if (rating === 3) {
+      return (
+        <>
+          <img src='/rating3.png' alt="3 Star" className="rating-image" />
+        </>
+      );
+    } else if (rating === 4) {
+      return (
+        <>
+          <img src='/rating4.png' alt="4 Star" className="rating-image" />
+        </>
+      );
+    } else if (rating === 5) {
+      return (
+        <>
+          <img src='/rating5.png' alt="5 Star" className="rating-image" />
+        </>
+      );
+    } else {
+      return null;
+    }
   };
 
   // Use regex to remove everything that isn't a digit (numbers) for price and square feet
@@ -123,17 +123,11 @@ const HouseDetail = () => {
           </div>
         )}
 
-        {/* House details */}
-        <div className="house-detail-info">
-          {/* Left column for price, year-built, and description */}
-          <div className="house-info-column">
+        {/* Combined section for price, year-built, and rating */}
+        <div className="house-info-column">
+          <div className="centered-content">
             <p><strong>Price:</strong> {house.price || 'N/A'}</p>
             <p><strong>Year Built:</strong> {house.yearBuilt || 'N/A'}</p>
-            <p><strong>Description:</strong> {house.description || 'No description available'}</p>
-          </div>
-
-          {/* Right column for the rating */}
-          <div className="rating-column">
             <h3>Rating</h3>
             <div className="rating-container">
               {renderRatingImages(rating)}
@@ -161,6 +155,15 @@ const HouseDetail = () => {
         </div>
       </div>
 
+      <div>
+        <p><strong>Description:</strong> {house.description || 'No description available'}</p>
+      </div>
+
+      <div className="house-section">
+        <h3>Investment Insights</h3>
+        <p>{house.estimatedMoneyBack}</p>
+      </div>
+
       {/* Add additional image underneath */}
       {house.additionalImageUrl && (
         <div className="house-additional-image-section">
@@ -185,40 +188,43 @@ const HouseDetail = () => {
       </div>
 
       <div className="house-section">
-        <h3>Tax Data</h3>
-        <LineChart data={house.taxData} margin={{right: 150}} width={1200} height={500}>
-            <XAxis dataKey="year" interval="preserveStartEnd" strokeWidth={3} tick={{ fontSize: 20 }}/>
-            <YAxis width={100} strokeWidth={3} tick={{ fontSize: 20 }}/>
-            <Legend formatter={(value) => {
-                // Mapping the dataKey to a custom display name
-                const nameMap = {
-                  taxPaid: "Tax Paid",
-                  taxAssessment: "Tax Assessment",
-                  land: "Land Value",
-                  improvement: "Improvement Value"
-                };
-                return <span style={{ cursor: "pointer" }}>{nameMap[value] || value}</span>;
-            }}/>
-            <Tooltip 
-              contentStyle={{ backgroundColor: "#ddd", color: "#000" }}
-              formatter={(value, name) => {
-                const nameMap = {
-                  taxPaid: "Tax Paid",
-                  taxAssessment: "Tax Assessment",
-                  land: "Land Value",
-                  improvement: "Improvement Value"
-                };
-                return [value, nameMap[name] || name];
-              }}
-              labelFormatter={(label) => `${label}`}
-            />
-            <Line dataKey="taxPaid" stroke="#FF8C00" activeDot={{r: 8}} strokeWidth={3}/>
-            <Line dataKey="taxAssessment" stroke="#0000FF" activeDot={{r: 8}} strokeWidth={3}/>
-            <Line dataKey="land" stroke="#000000" activeDot={{r: 8}} strokeWidth={3}/>
-            <Line dataKey="improvement" stroke="#FF0000" activeDot={{r: 8}} strokeWidth={3}/>
-            <CartesianGrid strokeDasharray="3 3" />
-        </LineChart>
-      </div>
+  <h3>Tax Data</h3>
+  {house.taxData && house.taxData.length > 0 ? (
+    <LineChart data={house.taxData} margin={{ right: 150 }} width={1200} height={500}>
+      <XAxis dataKey="year" interval="preserveStartEnd" strokeWidth={3} tick={{ fontSize: 20 }} />
+      <YAxis width={100} strokeWidth={3} tick={{ fontSize: 20 }} />
+      <Legend formatter={(value) => {
+        const nameMap = {
+          taxPaid: "Tax Paid",
+          taxAssessment: "Tax Assessment",
+          land: "Land Value",
+          improvement: "Improvement Value"
+        };
+        return <span style={{ cursor: "pointer" }}>{nameMap[value] || value}</span>;
+      }} />
+      <Tooltip
+        contentStyle={{ backgroundColor: "#ddd", color: "#000" }}
+        formatter={(value, name) => {
+          const nameMap = {
+            taxPaid: "Tax Paid",
+            taxAssessment: "Tax Assessment",
+            land: "Land Value",
+            improvement: "Improvement Value"
+          };
+          return [value, nameMap[name] || name];
+        }}
+        labelFormatter={(label) => `${label}`}
+      />
+      <Line dataKey="taxPaid" stroke="#FF8C00" activeDot={{ r: 8 }} strokeWidth={3} />
+      <Line dataKey="taxAssessment" stroke="#0000FF" activeDot={{ r: 8 }} strokeWidth={3} />
+      <Line dataKey="land" stroke="#000000" activeDot={{ r: 8 }} strokeWidth={3} />
+      <Line dataKey="improvement" stroke="#FF0000" activeDot={{ r: 8 }} strokeWidth={3} />
+      <CartesianGrid strokeDasharray="3 3" />
+    </LineChart>
+  ) : (
+    <p>No tax information is available</p>
+  )}
+</div>
 
       <div className="house-section">
         <h3>Highlights</h3>
@@ -229,12 +235,6 @@ const HouseDetail = () => {
             <p>No highlights available</p>
           )}
         </ul>
-      </div>
-
-      <div className="house-section">
-        <h3>Investment Insights</h3>
-        <p><strong>Should Buy:</strong> {house.shouldBuy ? 'Yes' : 'No'}</p>
-        <p><strong>Estimated Money Made:</strong> {house.estimatedMoneyBack}</p>
       </div>
     </div>
   );

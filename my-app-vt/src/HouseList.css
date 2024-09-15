@@ -14,15 +14,13 @@
   .house-list-container {
     padding: 20px;
     position: relative;
-    background-color: #f7f7f7;  /* Light background for better contrast */
   }
   
   .house-list-container .house-list-header {
     font-size: 1.5rem;  /* Make the header larger for visual appeal */
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     text-align: center;
     margin-top: 10px;  /* Add more space between the top and the header */
-    color: #333;
   }
 
   .house-card {
@@ -36,7 +34,7 @@
   }
   
   .house-card img {
-    height: 250px;
+    height: 190px;
     width: 100%;
     object-fit: cover;
   }
@@ -67,7 +65,7 @@
   }
   
   .rating-image {
-    width: 20px;  /* Adjust the size of each rating image */
+    width: 15px;  /* Adjust the size of each rating image */
     height: 10px;
   }
   

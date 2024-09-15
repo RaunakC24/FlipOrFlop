@@ -19,6 +19,7 @@
   flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 40px;
+  align-items: center;
 }
 
 /* House image section */

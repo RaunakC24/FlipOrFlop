@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import LoadingSpinner from '../components/LoadingSpinner';
 import '.././HouseList.css';  // Import the CSS file
 
 const HouseList = () => {
@@ -36,7 +37,7 @@ const HouseList = () => {
   }, [cityOrZip]);
 
   if (loading) {
-    return <Typography variant="h5">Loading houses...</Typography>;
+    return <LoadingSpinner />;
   }
 
   // Function to render rating images based on the house rating
