@@ -20,10 +20,6 @@ public class HomeEvaluationResponse {
     public String squareFeet;
     public String imageUrl;
 
-
-    public Boolean shouldBuy;
-    public String estimatedMoneyBack;
-
     public HomeEvaluationResponse() {
         highlights = new ArrayList<>();
         taxData = new ArrayList<>();

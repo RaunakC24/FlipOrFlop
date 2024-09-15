@@ -26,7 +26,8 @@ public class Controller {
                 
                 {
                     "shouldBuy" : true
-                    "estimatedMoneyMade" : 1000
+                    "estimatedMoneyMade" : 1000,
+                    "reasons" : ""
                 }""")
             .build();
         listOfHomesHashMap = new HashMap<>();
@@ -78,10 +79,10 @@ public class Controller {
             if (homeEvaluationResponse.getPrice() == null) {
                 homeEvaluationResponse.setPrice("");
             }
-            String chatResponse =
-                chatClient.prompt().user(homeEvaluationResponse.toString())
-                    .call().content();
-            homeEvaluationResponse.setEstimatedMoneyBack(chatResponse);
+//            String chatResponse =
+//                chatClient.prompt().user(homeEvaluationResponse.toString())
+//                    .call().content();
+//            homeEvaluationResponse.setEstimatedMoneyBack(chatResponse);
 
             homeEvaluationResponseHashMap.put(address, homeEvaluationResponse);
             return homeEvaluationResponse;
@@ -151,7 +152,7 @@ public class Controller {
 
     private int parseToInt(String value)
     {
-        String digits = value.replaceAll("[^\\d]", "");
+        String digits = value.replaceAll("\\D", "");
         int num = 0;
         try
         {
