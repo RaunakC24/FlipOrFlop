@@ -20,8 +20,8 @@ const HouseDetail = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const rating = parseFloat(searchParams.get('rating'));
+  
 
-  // Image paths for the ratings (1 to 5)
   useEffect(() => {
     const fetchHouseDetails = async () => {
       try {

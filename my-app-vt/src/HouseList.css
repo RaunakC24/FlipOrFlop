@@ -1,55 +1,75 @@
 .house-list-container {
     padding: 20px;
-}
-
-.house-list-header {
+    position: relative;
+  }
+  
+  .house-list-header {
     font-size: 2rem;
     margin-bottom: 20px;
     text-align: center;
-}
-
-.house-card {
+  }
+  
+  .house-card {
     max-width: 345px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
-}
-
-.house-card:hover {
+  }
+  
+  .house-card:hover {
     transform: scale(1.02);
-}
-
-.house-card img {
+  }
+  
+  .house-card img {
     height: 250px;
     width: 100%;
     object-fit: cover;
-}
-
-.house-card-content {
+  }
+  
+  .house-card-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-}
-
-.house-price {
+  }
+  
+  .house-price {
     font-size: 1.2rem;
     color: #333;
     font-weight: bold;
-}
-
-.house-details {
+  }
+  
+  .house-details {
     font-size: 1rem;
     color: #666;
     flex: 1;
-}
-
-.rating-container {
+  }
+  
+  .rating-container {
     display: flex;
     align-items: center;
     gap: 5px;  /* Add space between the images */
-}
-
-.rating-image {
+  }
+  
+  .rating-image {
     width: 20px;  /* Adjust the size of each rating image */
     height: 10px;
-}
+  }
+  
+  .top-right-logo {
+    position: absolute;
+    top: -10px; /* Move this upwards */
+    right: 20px;
+    font-size: 1.5rem;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    color: #ff8c00;
+    cursor: pointer;
+    z-index: 1000; /* Make sure it's on top of other elements */
+  }
+/* Apply to the parent container */
+.parent-container {
+    position: relative;
+  }
+    
+  
+  
