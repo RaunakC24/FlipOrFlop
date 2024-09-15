@@ -80,6 +80,7 @@
     cursor: pointer;
     z-index: 1000; /* Make sure it's on top of other elements */
   }
+  
 /* Apply to the parent container */
 .parent-container {
     position: relative;

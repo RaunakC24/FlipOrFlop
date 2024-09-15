@@ -8,7 +8,7 @@ import {
   CartesianGrid
 } from "recharts";
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom'; // import useNavigate to handle the logo click
 import './HouseDetail.css'; 
 import LoadingSpinner from '../components/LoadingSpinner';
 
@@ -17,6 +17,7 @@ const HouseDetail = () => {
   const [house, setHouse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // to handle logo click and navigation
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -64,66 +65,47 @@ const HouseDetail = () => {
     return <h5>No house data found</h5>;
   }
 
-  // Function to render rating images based on the house rating
   const renderRatingImages = (rating) => {
     if (rating === 1) {
       return <img src='/rating1.png' alt="1 Star" className="rating-image" />;
     } else if (rating === 2) {
-      return (
-        <>
-          <img src='/rating2.png' alt="2 Star" className="rating-image" />
-        </>
-      );
+      return <img src='/rating2.png' alt="2 Star" className="rating-image" />;
     } else if (rating === 3) {
-      return (
-        <>
-          <img src='/rating3.png' alt="3 Star" className="rating-image" />
-        </>
-      );
+      return <img src='/rating3.png' alt="3 Star" className="rating-image" />;
     } else if (rating === 4) {
-      return (
-        <>
-          <img src='/rating4.png' alt="4 Star" className="rating-image" />
-        </>
-      );
+      return <img src='/rating4.png' alt="4 Star" className="rating-image" />;
     } else if (rating === 5) {
-      return (
-        <>
-          <img src='/rating5.png' alt="5 Star" className="rating-image" />
-        </>
-      );
+      return <img src='/rating5.png' alt="5 Star" className="rating-image" />;
     } else {
       return null;
     }
   };
 
-  // Use regex to remove everything that isn't a digit (numbers) for price and square feet
   const price = house.price ? house.price.replace(/[^\d]/g, '') : null;
   const squareFeet = house.squareFeet ? house.squareFeet.replace(/[^\d]/g, '') : null;
 
-  // Convert cleaned string values to numbers
   const priceValue = parseFloat(price);
   const squareFeetValue = parseFloat(squareFeet);
-
-  // Calculate price per square foot
   const pricePerSquareFoot = (priceValue && squareFeetValue)
     ? (priceValue / squareFeetValue).toFixed(2)
     : 'N/A';
 
   return (
     <div className="house-detail-container">
+      {/* Add FliporFlop.com logo */}
+      <div className="top-right-logo" onClick={() => navigate('/')}>
+        FliporFlop.com
+      </div>
+
       <h2 className="house-detail-title">Details for {house.address}</h2>
 
-      {/* Flexbox container for image and details */}
       <div className="house-detail-flexbox">
-        {/* House image */}
         {house.imageUrl && (
           <div className="house-image-section">
             <img src={house.imageUrl} alt="House" className="house-image" />
           </div>
         )}
 
-        {/* Combined section for price, year-built, and rating */}
         <div className="house-info-column">
           <div className="centered-content">
             <p><strong>Price:</strong> {house.price || 'N/A'}</p>
@@ -136,7 +118,6 @@ const HouseDetail = () => {
         </div>
       </div>
 
-      {/* New section with beds, baths, square feet, and price per square foot */}
       <div className="house-info-section">
         <div className="house-info-item">
           <strong>{house.beds || 'N/A'}</strong> Beds
@@ -171,21 +152,6 @@ const HouseDetail = () => {
           <img src={house.additionalImageUrl} alt="Additional view of the house" className="house-additional-image" />
         </div>
       )}
-
-      <div className="house-price-section">
-        <h3>Prices Over the Years</h3>
-        {house.priceHistory && house.priceHistory.length > 0 ? (
-          <ul>
-            {house.priceHistory.map((price, index) => (
-              <li key={index}>
-                Year: {price.year}, Price: ${price.amount}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No price history available</p>
-        )}
-      </div>
 
       <div className="house-section">
   <h3>Tax Data</h3>
