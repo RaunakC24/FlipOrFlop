@@ -38,7 +38,7 @@ public class Controller {
         }
 
         try {
-            String[] command = {"python", "src/main/java/com/vark/fliporflop/scrapeHomes.py", " " + address};
+            String[] command = {"python3", "src/main/java/com/vark/fliporflop/scrapeHomes.py", " " + address};
 
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             Process process = processBuilder.start();
@@ -58,6 +58,10 @@ public class Controller {
                     homeEvaluationResponse.setSquareFeet(line.replace("SqFt: ", ""));
                 } else if (line.startsWith("Price: ")) {
                     homeEvaluationResponse.setPrice(line.replace("Price: ", ""));
+                } else if (line.startsWith("Beds: ")) {
+                    homeEvaluationResponse.setBeds(line.replace("Beds: ", ""));
+                } else if (line.startsWith("Baths: ")) {
+                    homeEvaluationResponse.setBaths(line.replace("Baths: ", ""));
                 } else if (line.startsWith("Image URLs: ")) {
                     homeEvaluationResponse.setImageUrl(line.replace("Image URLs: ", ""));
                 } else if (line.startsWith("Year Built: ")) {
