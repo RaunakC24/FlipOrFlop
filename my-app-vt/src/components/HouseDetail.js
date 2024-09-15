@@ -30,7 +30,10 @@ const HouseDetail = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: address,
+          body: JSON.stringify({
+            "address" : address,
+            "rating" : rating
+          }),
         });
 
         if (!response.ok) {
@@ -231,7 +234,7 @@ const HouseDetail = () => {
       <div className="house-section">
         <h3>Investment Insights</h3>
         <p><strong>Should Buy:</strong> {house.shouldBuy ? 'Yes' : 'No'}</p>
-        <p><strong>Estimated Money Made:</strong> {house.estimatedMoneyBack?.estimatedMoneyMade || 'N/A'}</p>
+        <p><strong>Estimated Money Made:</strong> {house.estimatedMoneyBack}</p>
       </div>
     </div>
   );
