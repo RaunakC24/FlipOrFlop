@@ -73,3 +73,5 @@ for property_listing in property_listings:
     print(f"Image URL: {good_images.pop()}")
     print(f"Description: {description}")
     print('-' * 50)
+
+print("\nENDED RUN")

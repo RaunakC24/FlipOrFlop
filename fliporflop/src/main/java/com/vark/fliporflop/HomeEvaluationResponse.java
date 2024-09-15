@@ -19,6 +19,7 @@ public class HomeEvaluationResponse {
     public String description;
     public String squareFeet;
     public String imageUrl;
+    public String EstimatedMoneyBack;
 
     public HomeEvaluationResponse() {
         highlights = new ArrayList<>();

@@ -20,15 +20,7 @@ public class Controller {
 
     public Controller(ChatClient.Builder builder) {
         chatClient = builder
-            .defaultSystem("""
-                The user will give you some data about a house, I need you to give me back in json format whether you think buying the house, renovating it a little, then selling it will make a profit, and how much of a profit it will make.
-                Example of the json, do not use these exact values each time
-                
-                {
-                    "shouldBuy" : true
-                    "estimatedMoneyMade" : 1000,
-                    "reasons" : ""
-                }""")
+            .defaultSystem("The user will give you some data about a house, you will respond with weather the house is a good or bad idea to buy for the purposes of flipping and explain your answer to the customer.")
             .build();
         listOfHomesHashMap = new HashMap<>();
         homeEvaluationResponseHashMap = new HashMap<>();
@@ -72,6 +64,8 @@ public class Controller {
                 } else if (line.startsWith("Year: ")) {
                     HomeEvaluationResponse.TaxData taxData = getTaxData(line);
                     homeEvaluationResponse.getTaxData().add(taxData);
+                } else if (line.contains("ENDED RUN")) {
+                    break;
                 }
 
             }
@@ -79,10 +73,12 @@ public class Controller {
             if (homeEvaluationResponse.getPrice() == null) {
                 homeEvaluationResponse.setPrice("");
             }
-//            String chatResponse =
-//                chatClient.prompt().user(homeEvaluationResponse.toString())
-//                    .call().content();
-//            homeEvaluationResponse.setEstimatedMoneyBack(chatResponse);
+
+            homeEvaluationResponse.setTaxData(homeEvaluationResponse.getTaxData().reversed());
+            String chatResponse =
+                chatClient.prompt().user(homeEvaluationResponse.toString())
+                    .call().content();
+            homeEvaluationResponse.setEstimatedMoneyBack(chatResponse);
 
             homeEvaluationResponseHashMap.put(address, homeEvaluationResponse);
             return homeEvaluationResponse;
@@ -139,6 +135,8 @@ public class Controller {
                     homeItem.setImageUrl(line.replace("Image URL: ", ""));
                     homeItems.add(homeItem);
                     homeItem = new HomeItem();
+                } else if (line.contains("ENDED RUN")) {
+                    break;
                 }
             }
             reader.close();
