@@ -139,10 +139,77 @@ public class Controller {
                 }
             }
             reader.close();
+            calculateRating(homeItems);
             listOfHomesHashMap.put(address, homeItems);
             return homeItems;
         } catch (IOException ignored) {
             return new ArrayList<>();
         }
     }
+
+    private int parseToInt(String value)
+    {
+        String digits = value.replaceAll("[^\\d]", "");
+        int num = 0;
+        try
+        {
+            num = digits.isEmpty() ? 0 : Integer.parseInt(digits);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return num;
+    }
+    private void calculateRating(List<HomeItem> input)
+    {
+        int maxPrice = Integer.MIN_VALUE;
+        int minPrice = Integer.MAX_VALUE;
+        int maxBedsBaths = Integer.MIN_VALUE;
+        int minSquareFeet = Integer.MAX_VALUE;
+        int maxSquareFeet = Integer.MIN_VALUE;
+        for(HomeItem item : input) {
+            maxPrice = Math.max(maxPrice, parseToInt(item.price));
+            minPrice = Math.min(minPrice, parseToInt(item.price));
+
+            maxBedsBaths = Math.max(maxBedsBaths, parseToInt(item.baths) + parseToInt(item.beds));
+
+            minSquareFeet = Math.min(minSquareFeet, parseToInt(item.squareFeet));
+            maxSquareFeet = Math.max(maxSquareFeet, parseToInt(item.squareFeet));
+        }
+
+
+        for(HomeItem item : input)
+        {
+            try
+            {
+                double price = parseToInt(item.price);
+                double priceRating = 5 - (price - minPrice) / (maxPrice - minPrice) * 4;
+                priceRating = Math.max(1, priceRating);
+
+                double bedsBathsRating = (parseToInt(item.beds) + parseToInt(item.baths)) / (double) maxBedsBaths * 5;
+
+                double squareFeetRating = (parseToInt(item.squareFeet) - minSquareFeet) / (double) (maxSquareFeet - minSquareFeet) * 5;
+
+                double descriptionRating = item.description.contains("needs renovation") ||
+                    item.description.contains("investment") ? 5 : 2;
+
+                double imageRating = (item.imageUrl != null && !item.imageUrl.isEmpty()) ? 3 : 1;  // Refine based on actual image data if needed
+
+
+                double flipRating = ((priceRating * 0.45) + (bedsBathsRating * 0.2) +
+                    (squareFeetRating * 0.2) + (descriptionRating * 0.1) +
+                    (imageRating * 0.05))*1.3 - 0.75;
+
+                flipRating = Math.max(1, Math.min(flipRating, 5));
+                item.rating = (int)flipRating;
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+                item.rating = 3;
+//                    continue;
+            }
+        }
+    }
+
 }

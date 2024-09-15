@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HomeItem {
+public class HomeItem implements Comparable<HomeItem> {
     public String price;
     public String address;
     public String beds;
@@ -17,4 +17,10 @@ public class HomeItem {
     public String squareFeet;
     public String description;
     public String imageUrl;
+    public double rating;
+
+    @Override
+    public int compareTo(HomeItem o) {
+        return Double.compare(o.rating, this.rating);
+    }
 }
