@@ -66,6 +66,8 @@ public class Controller {
                     homeEvaluationResponse.setPrice(line.replace("Price: ", ""));
                 } else if (line.startsWith("Image URLs: ")) {
                     homeEvaluationResponse.setImageUrl(line.replace("Image URLs: ", ""));
+                } else if (line.startsWith("Year Built: ")) {
+                    homeEvaluationResponse.setYearBuilt(line.replace("Year Built: ", ""));
                 } else if (line.startsWith("Year: ")) {
                     HomeEvaluationResponse.TaxData taxData = getTaxData(line);
                     homeEvaluationResponse.getTaxData().add(taxData);

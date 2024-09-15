@@ -126,8 +126,7 @@ def getPriceAndAddress(driver):
     except NoSuchElementException:
         address = "Address not found"
     
-    print("price: " + price)
-    print("python scrapeHomes.py " + address)
+    print("Price: " + price)
 
 def scrape_images(driver):
     # List to store image URLs
@@ -188,20 +187,20 @@ def run():
     # time.sleep(1)
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
-    # print("Description:")
-    # scrape_description(soup)
+    print("Description: ")
+    scrape_description(soup)
 
     getPriceAndAddress(driver)
 
     print("\nTax Data:")
     getTaxData(soup)
     
-    print("\nAmenities:")
+    print("\nAmenities: ")
     amenities = scrape_amenities(soup)
     print(json.dumps(amenities, indent=4))
 
-    print("\nSqFt:" + str(extract_sq_ft(amenities)))
-    print("\nYear Built:" + str(extract_year_built(amenities)))
+    print("\nSqFt: " + str(extract_sq_ft(amenities)))
+    print("\nYear Built: " + str(extract_year_built(amenities)))
 
     # Scrape images
     scrape_images(driver)
