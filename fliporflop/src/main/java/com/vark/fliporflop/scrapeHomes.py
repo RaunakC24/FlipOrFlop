@@ -128,6 +128,34 @@ def getPriceAndAddress(driver):
     
     print("Price: " + price)
 
+
+def scrape_property_info(driver):
+    try:
+        # Wait for the page to load (adjust sleep if necessary)
+        time.sleep(3)
+
+        # Extract beds
+        beds = driver.find_element(By.XPATH, "//span[@class='property-info-feature beds']/span[@class='property-info-feature-detail']").text
+
+        # Extract baths
+        baths = driver.find_element(By.XPATH, "//span[@class='property-info-feature']/span[@class='property-info-feature-detail']").text
+
+        # Extract square footage
+        # sqft = driver.find_element(By.XPATH, "//span[@class='property-info-feature sqft']/span[@class='property-info-feature-detail']").text
+
+        # Extract price per square foot
+        # price_per_sqft = driver.find_element(By.XPATH, "//span[@class='property-info-feature pricepersqt']/span[@class='property-info-feature-detail']").text
+
+        # Print extracted data
+        print(f"Beds: {beds}")
+        print(f"Baths: {baths}")
+        # print(f"Square Footage: {sqft} Sq Ft")
+        # print(f"Price per Sq Ft: {price_per_sqft}")
+
+    except Exception as e:
+        print(f"Error while scraping property info: {e}")
+
+
 def scrape_images(driver):
     # List to store image URLs
     good_images = []
@@ -168,7 +196,7 @@ def scrape_images(driver):
 
     print("Image URLs: " + str(good_images[0]))
 
-def run():
+def run(inp):
     url = "https://www.homes.com/"
     # Setup Chrome WebDriver using WebDriverManager
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
@@ -181,13 +209,15 @@ def run():
 
 
     time.sleep(1)
-    driver.find_element(By.XPATH, "//input[@aria-label='Place, Neighborhood, School or Agent']").send_keys(sys.argv[1])
+    driver.find_element(By.XPATH, "//input[@aria-label='Place, Neighborhood, School or Agent']").send_keys(inp) #sys.argv[1]
     time.sleep(1)
     driver.find_element(By.ID, "propertySearchBtn").click()
     # time.sleep(1)
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
-    print("Description: ")
+    scrape_property_info(driver)
+    print("Description: " + driver.find_element(By.ID, "ldp-description-text").text)
+    getHighlights(soup)
     scrape_description(soup)
 
     getPriceAndAddress(driver)
@@ -208,16 +238,4 @@ def run():
     driver.quit()
 
 
-run()
-# urls = [
-#     "https://www.homes.com/property/565-brush-mountain-rd-blacksburg-va/9prkxp50m85ny/",
-#     "https://www.homes.com/property/the-preserve-single-family-homes-savannah-blacksburg-va/2f4je0skpc0b3/",
-#     "https://www.homes.com/property/1325-nellies-cave-rd-blacksburg-va/rk3m86v31vdv5/",
-#     "https://www.homes.com/property/602-floyd-st-blacksburg-va/mhc1y9e4gemxb/"
-# ]
-
-# Loop through URLs and run the scraper for each
-# for url in urls:
-#     print(f"--" * 10)
-#     print(f"\nScraping URL: {url}")
-#     run(url)
+run(sys.argv[1])
