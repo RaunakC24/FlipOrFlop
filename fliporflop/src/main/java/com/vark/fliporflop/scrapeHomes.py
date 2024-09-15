@@ -234,6 +234,7 @@ def run(inp):
 
     # Scrape images
     scrape_images(driver)
+    print("\nENDED RUN")
 
     driver.quit()
 
