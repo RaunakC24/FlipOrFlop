@@ -38,7 +38,7 @@ public class Controller {
         }
 
         try {
-            String[] command = {"python3", "src/main/java/com/vark/fliporflop/scrapeHomes.py", " " + address};
+            String[] command = {"python", "src/main/java/com/vark/fliporflop/scrapeHomes.py", " " + address};
 
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             Process process = processBuilder.start();
