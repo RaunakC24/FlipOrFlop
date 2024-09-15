@@ -1,0 +1,55 @@
+.house-list-container {
+    padding: 20px;
+}
+
+.house-list-header {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.house-card {
+    max-width: 345px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.house-card:hover {
+    transform: scale(1.02);
+}
+
+.house-card img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.house-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.house-price {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.house-details {
+    font-size: 1rem;
+    color: #666;
+    flex: 1;
+}
+
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;  /* Add space between the images */
+}
+
+.rating-image {
+    width: 20px;  /* Adjust the size of each rating image */
+    height: 10px;
+}

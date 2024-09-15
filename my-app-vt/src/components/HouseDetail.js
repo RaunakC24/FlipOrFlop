@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
+import Rating from '@mui/material/Rating';  // Import the Rating component
 
 const HouseDetail = () => {
   const { address } = useParams(); // Get the house address from the URL
-  console.log('Address from params:', address);
   const [house, setHouse] = useState(null); // State to hold house details
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
 
+  // Use useLocation to get the query parameters
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const rating = parseFloat(searchParams.get('rating')); // Get the rating from query params
+
   useEffect(() => {
-    console.log('Fetching house details for address:', address); // Ensure this logs to check if useEffect is working
+    console.log('Fetching house details for address:', address);
 
     // Function to fetch house details by address
     const fetchHouseDetails = async () => {
@@ -28,8 +33,6 @@ const HouseDetail = () => {
         }
 
         const data = await response.json();
-        console.log('Received data:', data); // Check what data is received from the API
-
         setHouse(data); // Set the house data in state
         setLoading(false); // Disable loading
       } catch (err) {
@@ -65,35 +68,9 @@ const HouseDetail = () => {
       <p><strong>Square Feet:</strong> {house.squareFeet || 'N/A'}</p>
 
       <div style={{ marginTop: '20px' }}>
-        <h3>Tax Data</h3>
-        <ul>
-          {house.taxData?.length > 0 ? (
-            house.taxData.map((tax, index) => (
-              <li key={index}>
-                Year: {tax.year}, Tax Paid: ${tax.taxPaid}, Assessment: ${tax.taxAssessment}, Land: ${tax.land}, Improvement: ${tax.improvement}
-              </li>
-            ))
-          ) : (
-            <p>No tax data available</p>
-          )}
-        </ul>
-      </div>
-
-      <div style={{ marginTop: '20px' }}>
-        <h3>Highlights</h3>
-        <ul>
-          {house.highlights?.length > 0 ? (
-            house.highlights.map((highlight, index) => <li key={index}>{highlight}</li>)
-          ) : (
-            <p>No highlights available</p>
-          )}
-        </ul>
-      </div>
-
-      <div style={{ marginTop: '20px' }}>
-        <h3>Investment Insights</h3>
-        <p><strong>Should Buy:</strong> {house.shouldBuy ? 'Yes' : 'No'}</p>
-        <p><strong>Estimated Money Made:</strong> {house.estimatedMoneyBack?.estimatedMoneyMade || 'N/A'}</p>
+        <h3>Rating</h3>
+        {/* Display Rating passed from the HouseList */}
+        <Rating name="read-only" value={rating} readOnly precision={0.5} />
       </div>
 
       {house.imageUrl && (
