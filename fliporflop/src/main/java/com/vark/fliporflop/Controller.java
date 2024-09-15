@@ -20,7 +20,7 @@ public class Controller {
 
     public Controller(ChatClient.Builder builder) {
         chatClient = builder
-            .defaultSystem("The user will give you some data about a house, use the rating number to determine if a house is a good or bad idea to buy for the purposes of flipping and explain your answer to the customer.")
+            .defaultSystem("The user will give you some data about a house, use the rating number to determine if a house is a good or bad idea to buy for the purposes of flipping and explain your answer to the customer. If the rating number is low, do not give any positive reasons to buy the property. If the rating number is high, do not give any negative reasons to buy the property.")
             .build();
         listOfHomesHashMap = new HashMap<>();
         homeEvaluationResponseHashMap = new HashMap<>();
