@@ -22,18 +22,10 @@ const HouseDetail = () => {
   const rating = parseFloat(searchParams.get('rating'));
 
   // Image paths for the ratings (1 to 5)
-  const ratingImages = [
-    '/rating1.png',
-    '/rating2.png',
-    '/rating3.png',
-    '/rating4.png',
-    '/rating5.png',
-  ];
-
   useEffect(() => {
     const fetchHouseDetails = async () => {
       try {
-        const response = await fetch('http://localhost:8080/getHomeEvaluation', {
+        const response = await fetch('http://25.54.196.118:8080/getHomeEvaluation', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

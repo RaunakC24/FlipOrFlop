@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -16,7 +16,7 @@ const HouseList = () => {
 
   useEffect(() => {
     // Fetch house data
-    fetch('http://localhost:8080/getListOfHomes', {
+    fetch('http://25.54.196.118:8080/getListOfHomes', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
