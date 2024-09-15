@@ -20,19 +20,19 @@ public class Controller {
 
     public Controller(ChatClient.Builder builder) {
         chatClient = builder
-            .defaultSystem("The user will give you some data about a house, you will respond with weather the house is a good or bad idea to buy for the purposes of flipping and explain your answer to the customer.")
+            .defaultSystem("The user will give you some data about a house, use the rating number to determine if a house is a good or bad idea to buy for the purposes of flipping and explain your answer to the customer.")
             .build();
         listOfHomesHashMap = new HashMap<>();
         homeEvaluationResponseHashMap = new HashMap<>();
     }
 
     @PostMapping("/getHomeEvaluation")
-    HomeEvaluationResponse getHomeEvaluation(@RequestBody String address) {
-        return calculateHomeEvaluation(address);
+    HomeEvaluationResponse getHomeEvaluation(@RequestBody HomeEvaluationRequest request) {
+        return calculateHomeEvaluation(request.address, request.rating);
     }
 
 
-    private HomeEvaluationResponse calculateHomeEvaluation(String address) {
+    private HomeEvaluationResponse calculateHomeEvaluation(String address, int rating) {
         if (homeEvaluationResponseHashMap.containsKey(address)) {
             return homeEvaluationResponseHashMap.get(address);
         }
@@ -46,6 +46,7 @@ public class Controller {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             HomeEvaluationResponse homeEvaluationResponse = new HomeEvaluationResponse();
+            homeEvaluationResponse.setRating(rating);
             homeEvaluationResponse.setAddress(address);
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Highlight: ")) {

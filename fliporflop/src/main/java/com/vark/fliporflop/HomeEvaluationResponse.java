@@ -13,6 +13,7 @@ public class HomeEvaluationResponse {
     // Data from home.com
     public String price;
     public String address;
+    public int rating;
     public List<String> highlights;
     public List<TaxData> taxData;
     public String yearBuilt;
